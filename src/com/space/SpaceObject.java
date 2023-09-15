@@ -1,6 +1,8 @@
 package com.space;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.Arrays;
 
 public class SpaceObject {
@@ -16,10 +18,11 @@ public class SpaceObject {
     protected int velocityX;
     protected int velocityY;
     protected double orientation;
-    protected Polygon shape;
+    protected Shape shape;
+    protected Polygon shapePoly;
 
     // constructors
-    public SpaceObject() {
+    private SpaceObject() {
         setActive(true);
         setShape(new Polygon());
     }
@@ -38,7 +41,11 @@ public class SpaceObject {
         setLocationX(getLocationX() + getVelocityX());
         setLocationY(getLocationY() + getVelocityY());
         wrapAroundFrame();
-        getShape().translate(getVelocityX(), getVelocityY());
+
+        AffineTransform transform = new AffineTransform();
+        transform.translate(getVelocityX(), getVelocityY());
+        shapePoly.translate(getVelocityX(), getVelocityY());
+        shape = transform.createTransformedShape(shape);
     }
 
     private void wrapAroundFrame() {
@@ -57,14 +64,15 @@ public class SpaceObject {
     }
 
     public void accelerate(int delta) {
-        setVelocityX(getVelocityX() + (int) Math.cos(getOrientation()) * delta);
-        setVelocityY(getVelocityY() + (int) Math.cos(getOrientation()) * delta);
+        velocityX += Math.sin(Math.toRadians(orientation)) * delta;
+        velocityY -= Math.cos(Math.toRadians(orientation)) * delta;
         move();
     }
 
+
     public void decelerate(int delta) {
-        setVelocityX(getVelocityX() - (int) Math.cos(getOrientation()) * delta);
-        setVelocityY(getVelocityY() - (int) Math.cos(getOrientation()) * delta);
+        velocityX -= Math.sin(Math.toRadians(orientation)) * delta;
+        velocityY += Math.cos(Math.toRadians(orientation)) * delta;
         move();
     }
 
@@ -77,7 +85,7 @@ public class SpaceObject {
     }
 
     public void draw(Graphics g) {
-        g.drawPolygon(getShape());
+        g.drawPolygon(shapePoly);
     }
 
     // rotate by a certain amount
@@ -94,29 +102,18 @@ public class SpaceObject {
     }
 
     private void rotateShape(double angle) {
-        int[] xPoints = getShape().xpoints;
-        int[] yPoints = getShape().ypoints;
+        int[] xPoints = shapePoly.xpoints;
+        int[] yPoints = shapePoly.ypoints;
 
         // calculate the centroid of the polygon
         double centroidX = Arrays.stream(xPoints).average().orElse(0.0);
         double centroidY = Arrays.stream(yPoints).average().orElse(0.0);
 
-        for (int i = 0; i < getShape().npoints; i++) {
-            // translate to origin to make the math simpler
-            double translatedX = xPoints[i] - centroidX;
-            double translatedY = yPoints[i] - centroidY;
+        AffineTransform transform = new AffineTransform();
 
-            // rotate around origin
-            double rotatedX = translatedX * Math.cos(angle) - translatedY * Math.sin(angle);
-            double rotatedY = translatedX * Math.sin(angle) + translatedY * Math.cos(angle);
-
-            // translate back to the original location
-            xPoints[i] = (int) (rotatedX + centroidX);
-            yPoints[i] = (int) (rotatedY + centroidY);
-        }
-
-        // update the shape with the new points
-        setShape(new Polygon(xPoints, yPoints, getShape().npoints));
+        // transform shape
+        transform.rotate(Math.toRadians(angle), centroidX, centroidY);
+        shape = transform.createTransformedShape(shape);
     }
 
     // additional useful methods...
@@ -168,14 +165,18 @@ public class SpaceObject {
     }
 
     public void setOrientation(double orientation) {
+        if (orientation < 0) orientation = 360;
+        if (orientation > 360) orientation = 0;
         this.orientation = orientation;
     }
 
-    public Polygon getShape() {
+    public Shape getShape() {
         return shape;
     }
 
     public void setShape(Polygon shape) {
         this.shape = shape;
+        this.shapePoly = shape;
     }
+
 }
