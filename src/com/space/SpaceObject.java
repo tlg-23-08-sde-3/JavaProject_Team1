@@ -1,10 +1,13 @@
 package com.space;
 
-import java.awt.Polygon;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.Arrays;
 
 public class SpaceObject {
+
+    // static fields
+    public static final int FRAME_WIDTH = 800;
+    public static final int FRAME_HEIGHT = 800;
 
     // fields
     protected boolean isActive;
@@ -15,21 +18,42 @@ public class SpaceObject {
     protected double orientation;
     protected Polygon shape;
 
-    // constructor
+    // constructors
+    public SpaceObject() {
+        setActive(true);
+        setShape(new Polygon());
+    }
+
     public SpaceObject(int locationX, int locationY, int velocityX, int velocityY, Polygon shape) {
-        this.setActive(true);
-        this.setLocationX(locationX);
-        this.setLocationY(locationY);
-        this.setVelocityX(velocityX);
-        this.setVelocityY(velocityY);
-        this.setShape(shape);
+        this();
+        setLocationX(locationX);
+        setLocationY(locationY);
+        setVelocityX(velocityX);
+        setVelocityY(velocityY);
+        setShape(shape);
     }
 
     // action methods
     public void move() {
         setLocationX(getLocationX() + getVelocityX());
         setLocationY(getLocationY() + getVelocityY());
+        wrapAroundFrame();
         getShape().translate(getVelocityX(), getVelocityY());
+    }
+
+    private void wrapAroundFrame() {
+        if (getLocationX() > FRAME_WIDTH) {
+            setLocationX(0);
+        }
+        if (getLocationX() < 0) {
+            setLocationX(FRAME_WIDTH);
+        }
+        if (getLocationY() > FRAME_HEIGHT) {
+            setLocationY(0);
+        }
+        if (getLocationY() < 0) {
+            setLocationY(FRAME_HEIGHT);
+        }
     }
 
     public void accelerate(int delta) {
