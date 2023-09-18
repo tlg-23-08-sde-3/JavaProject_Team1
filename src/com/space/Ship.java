@@ -1,10 +1,10 @@
 package com.space;
 
-import java.awt.*;
+import java.awt.geom.Path2D;
 
 class Ship extends SpaceObject {
 
-    private final int MAX_SPEED = 3;
+    private final double MAX_SPEED = 3.0;
     private final double rotationSpeed = 5.0;
     private double angle = 0;
 
@@ -15,16 +15,18 @@ class Ship extends SpaceObject {
 
     public void defaultShip() {
         // default shape of the ship
-        int[] xPoints = {605, 615, 625, 615};
-        int[] yPoints = {350, 325, 350, 340};
-        int numberOfPoints = 4;
+        Path2D.Double shipPath = new Path2D.Double();
+        shipPath.moveTo(605, 350);
+        shipPath.lineTo(615, 325);
+        shipPath.lineTo(625, 350);
+        shipPath.lineTo(615, 340);
+        shipPath.closePath();
 
         locationX = PlayManager.WIDTH / 2;
         locationY = GamePanel.GAME_HEIGHT / 2;
         velocityX = 0;
         velocityY = 0;
-        shapePoly = new Polygon(xPoints, yPoints, numberOfPoints);
-        shape = shapePoly;
+        shape = shipPath;
     }
 
     private void handleMovement() {
@@ -35,7 +37,9 @@ class Ship extends SpaceObject {
             }
         }
         if (KeyHandler.upReleased) {
-            handleAccel();
+            //handleAcceleration();
+            velocityX = 0;
+            velocityY = 0;
         }
         // rotate counterclockwise
         if (KeyHandler.leftPressed) {
@@ -65,7 +69,7 @@ class Ship extends SpaceObject {
         }
     }
 
-    private void handleAccel() {
+    private void handleAcceleration() {
         if (getSqrMagnitude() > 0) {
             decelerate(1);
         }
@@ -77,12 +81,12 @@ class Ship extends SpaceObject {
 
     public void update() {
         handleMovement();
-        handleAccel();
+        handleAcceleration();
         rotate();
         System.out.println("locationX: " + locationX
                 + " | locationY: " + locationY);
-        System.out.println("BoundsX: " + shapePoly.getBounds().x
-                + " | BoundsY: " + shapePoly.getBounds().y
+        System.out.println("BoundsX: " + shape.getBounds().x
+                + " | BoundsY: " + shape.getBounds().y
                 + " | SqrMag: " + getSqrMagnitude());
     }
 
@@ -90,9 +94,4 @@ class Ship extends SpaceObject {
     private double getSqrMagnitude() {
         return Math.sqrt(Math.pow(velocityX, 2) + Math.pow(velocityY, 2));
     }
-
-    public void draw(Graphics2D graphics) {
-        graphics.draw(shape);
-    }
-
 }

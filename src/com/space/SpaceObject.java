@@ -3,32 +3,29 @@ package com.space;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.util.Arrays;
+import java.awt.geom.Path2D;
 
 class SpaceObject extends JPanel {
 
     // fields
     protected boolean isActive;
-    protected int locationX, locationY;
-    protected int velocityX, velocityY;
+    protected double locationX, locationY;
+    protected double velocityX, velocityY;
     protected double orientation;
-    protected Polygon shapePoly;
-    protected Shape shape;
+    protected Path2D shape;
 
     // constructors
     public SpaceObject() {
         this.isActive = true;
-        shapePoly = new Polygon();
-        shape = shapePoly;
+        shape = new Path2D.Double();
     }
 
-    public SpaceObject(int locationX, int locationY, int velocityX, int velocityY, Polygon shape) {
+    public SpaceObject(double locationX, double locationY, double velocityX, double velocityY, Path2D shape) {
         this();
         this.locationX = locationX;
         this.locationY = locationY;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
-        this.shapePoly = shape;
         this.shape = shape;
     }
 
@@ -36,36 +33,21 @@ class SpaceObject extends JPanel {
     public void move() {
         locationX += velocityX;
         locationY += velocityY;
-        wrapAroundFrame();
-        shapePoly.translate(velocityX, velocityY);
+
         AffineTransform transform = new AffineTransform();
         transform.translate(velocityX, velocityY);
-        shape = transform.createTransformedShape(shape);
+        shape.transform(transform);
     }
 
-    private void wrapAroundFrame() {
-        if (locationX > PlayManager.WIDTH) {
-            locationX = 0;
-        }
-        if (locationX < 0) {
-            locationX = PlayManager.WIDTH;
-        }
-        if (locationY > GamePanel.GAME_HEIGHT) {
-            locationY = 0;
-        }
-        if (locationY < 0) {
-            locationY = GamePanel.GAME_HEIGHT;
-        }
-    }
 
-    public void accelerate(int delta) {
+
+    public void accelerate(double delta) {
         velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
         velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
         move();
     }
 
-
-    public void decelerate(int delta) {
+    public void decelerate(double delta) {
         velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
         velocityY += (Math.cos(Math.toRadians(orientation)) * delta);
         move();
@@ -85,31 +67,25 @@ class SpaceObject extends JPanel {
     }
 
     private void rotateShape(double angle) {
-        int[] xPoints = shapePoly.xpoints;
-        int[] yPoints = shapePoly.ypoints;
-
-        // calculate the centroid of the polygon
-        double centroidX = Arrays.stream(xPoints).average().orElse(0.0);
-        double centroidY = Arrays.stream(yPoints).average().orElse(0.0);
+        double centroidX = shape.getBounds().getCenterX();
+        double centroidY = shape.getBounds().getCenterY();
 
         AffineTransform transform = new AffineTransform();
-
-        // transform shape
         transform.rotate(Math.toRadians(angle), centroidX, centroidY);
-        shape = transform.createTransformedShape(shape);
+        shape.transform(transform);
     }
 
 
     public boolean intersectsWith(SpaceObject other) {
-        return this.shapePoly.getBounds().intersects(other.shapePoly.getBounds());
+        return this.shape.getBounds().intersects(other.shape.getBounds());
     }
 
     public void destroy() {
         isActive = false;
     }
 
-    public void draw(Graphics graphics) {
-        graphics.drawPolygon(shapePoly);
+    public void draw(Graphics2D graphics) {
+        graphics.draw(shape);
     }
 
     // additional useful methods...
@@ -124,7 +100,7 @@ class SpaceObject extends JPanel {
         isActive = active;
     }
 
-    public int getLocationX() {
+    public double getLocationX() {
         return locationX;
     }
 
@@ -132,7 +108,7 @@ class SpaceObject extends JPanel {
         this.locationX = locationX;
     }
 
-    public int getLocationY() {
+    public double getLocationY() {
         return locationY;
     }
 
@@ -140,7 +116,7 @@ class SpaceObject extends JPanel {
         this.locationY = locationY;
     }
 
-    public int getVelocityX() {
+    public double getVelocityX() {
         return velocityX;
     }
 
@@ -148,7 +124,7 @@ class SpaceObject extends JPanel {
         this.velocityX = velocityX;
     }
 
-    public int getVelocityY() {
+    public double getVelocityY() {
         return velocityY;
     }
 
@@ -169,9 +145,8 @@ class SpaceObject extends JPanel {
         return shape;
     }
 
-    public void setShape(Polygon shape) {
+    public void setShape(Path2D shape) {
         this.shape = shape;
-        this.shapePoly = shape;
     }
 
 }

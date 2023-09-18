@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 class KeyHandler implements KeyListener {
 
     public static boolean upPressed, leftPressed, rightPressed, shootPressed;
-    public static boolean upReleased, leftReleased, rightReleased, shootReleased;
+    public static boolean upReleased = true, leftReleased = true, rightReleased = true, shootReleased = true;
 
     @Override
     public void keyTyped(KeyEvent e) {
