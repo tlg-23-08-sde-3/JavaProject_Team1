@@ -1,6 +1,9 @@
 package com.space;
 
 import java.awt.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class PlayManager {
     private static int left_x;
@@ -8,10 +11,12 @@ class PlayManager {
     private static int top_y;
     private static int bottom_y;
 
-    private static final int WIDTH = 960;
+    public static final int WIDTH = 960;
 
     Ship ship = new Ship();
-    Asteroid asteroid = new Asteroid();
+    List<Asteroid> asteroids = Stream.generate(Asteroid::new)
+            .limit(50)
+            .collect(Collectors.toList());
 
     public PlayManager() {
 
@@ -24,15 +29,15 @@ class PlayManager {
 
     public void update(){
         ship.update();
-        asteroid.update();
+        asteroids.forEach(Asteroid::update);
     }
 
     public void draw(Graphics2D g) {
         g.setColor(Color.white);
-        g.setStroke(new BasicStroke(4f));
+        g.setStroke(new BasicStroke(2f));
         g.drawRect(left_x-4, top_y-4, WIDTH+8, bottom_y+8);
         ship.draw(g);
-        asteroid.draw(g);
+        asteroids.forEach(asteroid -> asteroid.draw(g));
     }
 
 }
