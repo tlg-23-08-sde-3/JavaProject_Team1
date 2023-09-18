@@ -8,12 +8,18 @@ class Bullet extends SpaceObject {
 
     private final double BULLET_SPEED = 5.0;
 
+    private final String bulletAudioString = "./src/com/space/audio/laserShoot.wav";
+    public Audio audio;
+
     public Bullet(double locationX, double locationY, double orientation) {
         super(locationX, locationY, 0, 0, new Path2D.Double());
         this.orientation = orientation;
         velocityX = BULLET_SPEED * Math.sin(Math.toRadians(orientation));
         velocityY = -BULLET_SPEED * Math.cos(Math.toRadians(orientation));
         createBulletShape();
+
+        audio = new Audio(bulletAudioString);
+        audio.playSound();
     }
 
     private void createBulletShape() {

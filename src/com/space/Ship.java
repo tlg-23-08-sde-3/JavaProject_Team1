@@ -92,8 +92,14 @@ class Ship extends SpaceObject {
 
     private void updateBullets() {
         bullets.forEach(Bullet::move);
-        bullets.removeIf(bullet -> !bullet.isActive);
-        System.out.println(this);
+        for (int i = 0; i < bullets.size(); i++) {
+            if (!bullets.get(i).isActive) {
+                bullets.get(i).audio.closeAudioSystem();
+                bullets.remove(i);
+            }
+        }
+        //bullets.removeIf(bullet -> !bullet.isActive);
+        //System.out.println(this);
     }
 
     @Override

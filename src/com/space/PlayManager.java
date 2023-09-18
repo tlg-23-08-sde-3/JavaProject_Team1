@@ -27,7 +27,7 @@ class PlayManager {
 
     }
 
-    public void update(){
+    public void update() {
         ship.update();
         asteroids.forEach(Asteroid::update);
     }
