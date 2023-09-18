@@ -7,6 +7,12 @@ import java.awt.geom.Path2D;
 
 class SpaceObject extends JPanel {
 
+    // static variables
+    public static final double MIN_LOCATION_X = ((double) GamePanel.GAME_WIDTH / 2) - ((double) PlayManager.WIDTH / 2);
+    public static final double MAX_LOCATION_X = MIN_LOCATION_X + PlayManager.WIDTH;
+    public static final double MIN_LOCATION_Y = 0;
+    public static final double MAX_LOCATION_Y = GamePanel.GAME_HEIGHT;
+
     // fields
     protected boolean isActive;
     protected double locationX, locationY;
@@ -33,7 +39,6 @@ class SpaceObject extends JPanel {
     public void move() {
         locationX += velocityX;
         locationY += velocityY;
-
         AffineTransform transform = new AffineTransform();
         transform.translate(velocityX, velocityY);
         shape.transform(transform);
@@ -96,10 +101,9 @@ class SpaceObject extends JPanel {
         rotateShape(difference);
     }
 
-    private void rotateShape(double angle) {
+    public void rotateShape(double angle) {
         double centroidX = shape.getBounds().getCenterX();
         double centroidY = shape.getBounds().getCenterY();
-
         AffineTransform transform = new AffineTransform();
         transform.rotate(Math.toRadians(angle), centroidX, centroidY);
         shape.transform(transform);

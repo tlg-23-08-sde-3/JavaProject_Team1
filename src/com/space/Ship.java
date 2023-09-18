@@ -1,6 +1,9 @@
 package com.space;
 
+import java.awt.*;
 import java.awt.geom.Path2D;
+import java.util.ArrayList;
+import java.util.List;
 
 class Ship extends SpaceObject {
 
@@ -10,6 +13,7 @@ class Ship extends SpaceObject {
     private final double decelerationRate = 0.01;
     private final double rotationSpeed = 5.0;
     private double angle = 0;
+    private List<Bullet> bullets = new ArrayList<>();
 
     public Ship() {
         super();
@@ -18,18 +22,18 @@ class Ship extends SpaceObject {
 
     public void defaultShip() {
         // default shape of the ship
-        Path2D.Double shipPath = new Path2D.Double();
-        shipPath.moveTo(605, 350);
-        shipPath.lineTo(615, 325);
-        shipPath.lineTo(625, 350);
-        shipPath.lineTo(615, 340);
-        shipPath.closePath();
+        Path2D.Double shipShape = new Path2D.Double();
+        shipShape.moveTo(605, 350);
+        shipShape.lineTo(615, 325);
+        shipShape.lineTo(625, 350);
+        shipShape.lineTo(615, 340);
+        shipShape.closePath();
 
-        locationX = PlayManager.WIDTH / 2;
-        locationY = GamePanel.GAME_HEIGHT / 2;
+        locationX = (double) PlayManager.WIDTH / 2;
+        locationY = (double) GamePanel.GAME_HEIGHT / 2;
         velocityX = 0;
         velocityY = 0;
-        shape = shipPath;
+        shape = shipShape;
     }
 
     private void handleMovement() {
@@ -64,6 +68,7 @@ class Ship extends SpaceObject {
 
         if (KeyHandler.shootPressed) {
             System.out.println("pew pew");
+            shoot();
         }
     }
 
@@ -82,6 +87,12 @@ class Ship extends SpaceObject {
         handleMovement();
         limitSpeed();
         rotate();
+        updateBullets();
+    }
+
+    private void updateBullets() {
+        bullets.forEach(Bullet::move);
+        bullets.removeIf(bullet -> !bullet.isActive);
         System.out.println(this);
     }
 
@@ -100,5 +111,17 @@ class Ship extends SpaceObject {
     // get the square magnitude of the ship's velocity
     private double getSqrMagnitude() {
         return Math.sqrt(Math.pow(velocityX, 2) + Math.pow(velocityY, 2));
+    }
+
+    private void shoot() {
+        double centroidX = shape.getBounds().getCenterX();
+        double centroidY = shape.getBounds().getCenterY();
+        Bullet bullet = new Bullet(centroidX, centroidY, orientation);
+        bullets.add(bullet);
+        System.out.println(bullets.size());
+    }
+
+    public void drawBullets(Graphics2D graphics) {
+        bullets.forEach(bullet -> bullet.draw(graphics));
     }
 }
