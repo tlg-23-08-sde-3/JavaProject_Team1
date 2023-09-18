@@ -21,7 +21,7 @@ class PlayManager {
     public PlayManager() {
 
         left_x = (GamePanel.GAME_WIDTH / 2) - (WIDTH / 2);
-        right_x = left_x + WIDTH;
+        right_x = WIDTH;
         top_y = 0;
         bottom_y = GamePanel.GAME_HEIGHT;
 
@@ -35,8 +35,9 @@ class PlayManager {
     public void draw(Graphics2D g) {
         g.setColor(Color.white);
         g.setStroke(new BasicStroke(2f));
-        g.drawRect(left_x-4, top_y-4, WIDTH+8, bottom_y+8);
+        g.drawRect(left_x, top_y, right_x, bottom_y);
         ship.draw(g);
+        ship.drawBullets(g);
         asteroids.forEach(asteroid -> asteroid.draw(g));
     }
 

@@ -7,5 +7,4 @@ class Main {
         GameFrame game = new GameFrame();
         game.startGame();
     }
-
 }
