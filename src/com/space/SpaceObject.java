@@ -39,17 +39,47 @@ class SpaceObject extends JPanel {
         shape.transform(transform);
     }
 
-
-
     public void accelerate(double delta) {
         velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
         velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
         move();
     }
 
+    public void accelerate(double delta, double MAX, double MIN) {
+        // Change velocity based on angle
+        velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
+        velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
+
+        // check if velocity is over the max... set to max if over.
+        if (MAX < velocityX) {
+            velocityX = MAX;
+        }
+        else if (velocityX*(-1) < MAX*(-1)) {
+            velocityX = MAX * (-1);
+        }
+
+        if (MAX < velocityY) {
+            velocityY = MAX;
+        }
+        else if (velocityY*(-1) < MAX*(-1)) {
+            velocityY = MAX * (-1);
+        }
+        move();
+    }
+
     public void decelerate(double delta) {
         velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
         velocityY += (Math.cos(Math.toRadians(orientation)) * delta);
+        move();
+    }
+
+    public void decelerate(double delta, double MAX, double MIN) {
+        if (velocityX > MIN && velocityX*(-1) > MIN*(-1)) {
+            velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
+        }
+        if (velocityY > MIN && velocityY*(-1) > MIN*(-1)) {
+            velocityY += (Math.cos(Math.toRadians(orientation)) * delta);
+        }
         move();
     }
 
