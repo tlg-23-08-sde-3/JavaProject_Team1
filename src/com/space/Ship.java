@@ -1,91 +1,98 @@
 package com.space;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.util.Arrays;
 
-class Ship extends JPanel {
-    int x = 600;
-    int y = 300;
-    int[] xPoints = {620, 640, 660, 640};
-    int[] yPoints = {355, 300, 355, 340};
+class Ship extends SpaceObject {
 
-    final int MAX_SPEED = 3;
+    private final int MAX_SPEED = 3;
+    private final double rotationSpeed = 5.0;
+    private double angle = 0;
 
-    int numberOfPoints = 4;
-    int speed = 1;
-    double rotationSpeed = 5.0;
-    double angle = 0;
-    Polygon shipPoly;
-
-    SpaceObject ship;
     public Ship() {
-        shipPoly = new Polygon(xPoints, yPoints, numberOfPoints);
-        ship = new SpaceObject(x, y, 0, 0, shipPoly);
+        super();
+        defaultShip();
+    }
+
+    public void defaultShip() {
+        // default shape of the ship
+        int[] xPoints = {605, 615, 625, 615};
+        int[] yPoints = {350, 325, 350, 340};
+        int numberOfPoints = 4;
+
+        locationX = PlayManager.WIDTH / 2;
+        locationY = GamePanel.GAME_HEIGHT / 2;
+        velocityX = 0;
+        velocityY = 0;
+        shapePoly = new Polygon(xPoints, yPoints, numberOfPoints);
+        shape = shapePoly;
     }
 
     private void handleMovement() {
         if (KeyHandler.upPressed) {
             // keep speed under max
-            if (getSqrMagnitude() < MAX_SPEED){
-                ship.accelerate(4);
+            if (getSqrMagnitude() < MAX_SPEED) {
+                accelerate(4);
             }
-            KeyHandler.upPressed = false;
         }
         if (KeyHandler.upReleased) {
-            KeyHandler.upReleased = false;
+            handleAccel();
         }
         // rotate counterclockwise
         if (KeyHandler.leftPressed) {
-            angle = rotationSpeed*-1;
-            KeyHandler.leftPressed = false;
+            angle = rotationSpeed * -1;
         }
         // rotate clockwise
         if (KeyHandler.rightPressed) {
             angle = rotationSpeed;
-            KeyHandler.rightPressed = false;
         }
         // reset turning
-        if (KeyHandler.rightReleased || KeyHandler.leftReleased) {
-            angle = 0;
-            KeyHandler.rightReleased = false;
+        if (KeyHandler.leftReleased) {
+            if (!KeyHandler.rightPressed) {
+                angle = 0;
+            }
             KeyHandler.leftReleased = false;
         }
 
+        if (KeyHandler.rightReleased) {
+            if (!KeyHandler.leftPressed) {
+                angle = 0;
+            }
+            KeyHandler.rightReleased = false;
+        }
+
         if (KeyHandler.shootPressed) {
-            // instantiate projectile
+            System.out.println("pew pew");
         }
     }
 
     private void handleAccel() {
         if (getSqrMagnitude() > 0) {
-            ship.decelerate(1);
+            decelerate(1);
         }
     }
 
-
     private void rotate() {
-        ship.rotateBy(angle);
+        rotateBy(angle);
     }
 
     public void update() {
         handleMovement();
         handleAccel();
         rotate();
-        System.out.println("X: " + ship.shape.getBounds().x
-                + " | Y: " + ship.shape.getBounds().y
+        System.out.println("locationX: " + locationX
+                + " | locationY: " + locationY);
+        System.out.println("BoundsX: " + shapePoly.getBounds().x
+                + " | BoundsY: " + shapePoly.getBounds().y
                 + " | SqrMag: " + getSqrMagnitude());
     }
 
     // get the square magnitude of the ship's velocity
-    private double getSqrMagnitude(){
-        return Math.sqrt(Math.pow(ship.velocityX,2) + Math.pow(ship.velocityY,2));
+    private double getSqrMagnitude() {
+        return Math.sqrt(Math.pow(velocityX, 2) + Math.pow(velocityY, 2));
     }
 
     public void draw(Graphics2D graphics) {
-        graphics.draw(ship.shape);
+        graphics.draw(shape);
     }
-
 
 }

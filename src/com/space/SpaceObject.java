@@ -1,102 +1,85 @@
 package com.space;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.util.Arrays;
 
-public class SpaceObject {
-
-    // static fields
-    public static final int FRAME_WIDTH = 800;
-    public static final int FRAME_HEIGHT = 800;
+class SpaceObject extends JPanel {
 
     // fields
     protected boolean isActive;
-    protected int locationX;
-    protected int locationY;
-    protected int velocityX;
-    protected int velocityY;
+    protected int locationX, locationY;
+    protected int velocityX, velocityY;
     protected double orientation;
-    protected Shape shape;
     protected Polygon shapePoly;
+    protected Shape shape;
 
     // constructors
-    private SpaceObject() {
-        setActive(true);
-        setShape(new Polygon());
+    public SpaceObject() {
+        this.isActive = true;
+        shapePoly = new Polygon();
+        shape = shapePoly;
     }
 
     public SpaceObject(int locationX, int locationY, int velocityX, int velocityY, Polygon shape) {
         this();
-        setLocationX(locationX);
-        setLocationY(locationY);
-        setVelocityX(velocityX);
-        setVelocityY(velocityY);
-        setShape(shape);
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
+        this.shapePoly = shape;
+        this.shape = shape;
     }
 
     // action methods
     public void move() {
-        setLocationX(getLocationX() + getVelocityX());
-        setLocationY(getLocationY() + getVelocityY());
+        locationX += velocityX;
+        locationY += velocityY;
         wrapAroundFrame();
-
+        shapePoly.translate(velocityX, velocityY);
         AffineTransform transform = new AffineTransform();
-        transform.translate(getVelocityX(), getVelocityY());
-        shapePoly.translate(getVelocityX(), getVelocityY());
+        transform.translate(velocityX, velocityY);
         shape = transform.createTransformedShape(shape);
     }
 
     private void wrapAroundFrame() {
-        if (getLocationX() > FRAME_WIDTH) {
-            setLocationX(0);
+        if (locationX > PlayManager.WIDTH) {
+            locationX = 0;
         }
-        if (getLocationX() < 0) {
-            setLocationX(FRAME_WIDTH);
+        if (locationX < 0) {
+            locationX = PlayManager.WIDTH;
         }
-        if (getLocationY() > FRAME_HEIGHT) {
-            setLocationY(0);
+        if (locationY > GamePanel.GAME_HEIGHT) {
+            locationY = 0;
         }
-        if (getLocationY() < 0) {
-            setLocationY(FRAME_HEIGHT);
+        if (locationY < 0) {
+            locationY = GamePanel.GAME_HEIGHT;
         }
     }
 
     public void accelerate(int delta) {
-        velocityX += Math.sin(Math.toRadians(orientation)) * delta;
-        velocityY -= Math.cos(Math.toRadians(orientation)) * delta;
+        velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
+        velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
         move();
     }
 
 
     public void decelerate(int delta) {
-        velocityX -= Math.sin(Math.toRadians(orientation)) * delta;
-        velocityY += Math.cos(Math.toRadians(orientation)) * delta;
+        velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
+        velocityY += (Math.cos(Math.toRadians(orientation)) * delta);
         move();
-    }
-
-    public boolean intersectsWith(SpaceObject other) {
-        return this.getShape().getBounds().intersects(other.getShape().getBounds());
-    }
-
-    public void destroy() {
-        setActive(false);
-    }
-
-    public void draw(Graphics g) {
-        g.drawPolygon(shapePoly);
     }
 
     // rotate by a certain amount
     public void rotateBy(double angle) {
-        setOrientation(getOrientation() + angle);
+        setOrientation(orientation + angle);
         rotateShape(angle);
     }
 
     // rotate to a specific value
     public void rotateTo(double angle) {
-        double difference = angle - getOrientation();
+        double difference = angle - orientation;
         setOrientation(angle);
         rotateShape(difference);
     }
@@ -114,6 +97,19 @@ public class SpaceObject {
         // transform shape
         transform.rotate(Math.toRadians(angle), centroidX, centroidY);
         shape = transform.createTransformedShape(shape);
+    }
+
+
+    public boolean intersectsWith(SpaceObject other) {
+        return this.shapePoly.getBounds().intersects(other.shapePoly.getBounds());
+    }
+
+    public void destroy() {
+        isActive = false;
+    }
+
+    public void draw(Graphics graphics) {
+        graphics.drawPolygon(shapePoly);
     }
 
     // additional useful methods...
@@ -165,9 +161,8 @@ public class SpaceObject {
     }
 
     public void setOrientation(double orientation) {
-        if (orientation < 0) orientation = 360;
-        if (orientation > 360) orientation = 0;
-        this.orientation = orientation;
+        this.orientation = orientation % 360;
+        if (this.orientation < 0) this.orientation += 360;
     }
 
     public Shape getShape() {
