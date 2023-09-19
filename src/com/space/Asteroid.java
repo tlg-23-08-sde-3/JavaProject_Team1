@@ -7,7 +7,7 @@ import java.util.List;
 
 class Asteroid extends SpaceObject {
 
-    private AsteroidSize size;
+    public AsteroidSize size;
 
     public Asteroid() {
         super();
@@ -97,6 +97,7 @@ class Asteroid extends SpaceObject {
         velocityX = -velocityX;
         velocityY = -velocityY;
     }
+
 
     public List<Asteroid> split() {
         List<Asteroid> splitAsteroids = new ArrayList<>();
