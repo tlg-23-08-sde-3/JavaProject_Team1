@@ -31,13 +31,13 @@ class Asteroid extends SpaceObject {
     }
 
     public void setRandomVelocity() {
-        double velocityRange = 1.0;
+        double velocityRange = 0.5;
         switch (size) {
             case MEDIUM:
-                velocityRange = 1.5;
+                velocityRange = 1.0;
                 break;
             case SMALL:
-                velocityRange = 2.0;
+                velocityRange = 1.5;
                 break;
         }
         velocityX = (Math.random() * 2 * velocityRange) - velocityRange;
@@ -91,11 +91,6 @@ class Asteroid extends SpaceObject {
         AffineTransform transform = new AffineTransform();
         transform.translate(velocityX, velocityY);
         shape.transform(transform);
-    }
-
-    public void bounce() {
-        velocityX = -velocityX;
-        velocityY = -velocityY;
     }
 
 

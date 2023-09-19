@@ -3,7 +3,9 @@ package com.space;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Path2D;
+
 
 class SpaceObject extends JPanel {
 
@@ -116,12 +118,11 @@ class SpaceObject extends JPanel {
         shape.transform(transform);
     }
 
-    public boolean collidesWith(SpaceObject other) {
-        return this.shape.intersects(other.shape.getBounds2D());
-    }
-
     public boolean intersectsWith(SpaceObject other) {
-        return this.shape.getBounds2D().intersects(other.shape.getBounds2D());
+        Area thisArea = new Area(this.shape);
+        Area otherArea = new Area(other.shape);
+        thisArea.intersect(otherArea);
+        return !thisArea.isEmpty();
     }
 
     public void destroy() {

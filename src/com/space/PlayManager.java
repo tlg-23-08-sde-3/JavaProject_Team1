@@ -37,50 +37,11 @@ class PlayManager {
             for (int j = i + 1; j < asteroids.size(); j++) {
                 Asteroid asteroid2 = asteroids.get(j);
                 if (asteroid1.intersectsWith(asteroid2)) {
-                    separateAsteroids(asteroid1, asteroid2);
-                    asteroid1.bounce();
-                    asteroid2.bounce();
+                    System.out.println("YES");
                 }
             }
         }
     }
-
-    public void separateAsteroids(Asteroid asteroid1, Asteroid asteroid2) {
-        // Calculate the distance between the centers of the two asteroids
-        double dx = asteroid2.locationX - asteroid1.locationX;
-        double dy = asteroid2.locationY - asteroid1.locationY;
-        double distance = Math.sqrt(dx * dx + dy * dy);
-
-        // Calculate the total radius (sum of the radii of the two asteroids)
-        double totalRadius = asteroid1.size.getUpperLimit() + asteroid2.size.getUpperLimit();
-
-        // Calculate the overlap distance
-        double overlap = totalRadius - distance;
-
-        // If there's no overlap, no need to separate
-        if (overlap <= 0) return;
-
-        // Normalize the direction vector
-        dx /= distance;
-        dy /= distance;
-
-        // Determine which asteroid to move
-        Asteroid asteroidToMove;
-        if (asteroid1.size.ordinal() < asteroid2.size.ordinal()) {
-            asteroidToMove = asteroid1;
-        } else {
-            asteroidToMove = asteroid2;
-        }
-
-        // Calculate new positions for the asteroid based on the overlap
-        double newLocationX = asteroidToMove.locationX + dx * overlap;
-        double newLocationY = asteroidToMove.locationY + dy * overlap;
-
-        // Move the asteroid to the new position
-        asteroidToMove.moveTo(newLocationX, newLocationY);
-    }
-
-
 }
 
 
