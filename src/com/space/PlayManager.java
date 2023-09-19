@@ -1,7 +1,9 @@
 package com.space;
 
+import com.space.ui.HealthUI;
+import com.space.ui.ScoreUI;
+
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +26,8 @@ class PlayManager {
         ship.draw(g);
         ship.drawBullets(g);
         asteroids.forEach(asteroid -> asteroid.draw(g));
+        ScoreUI.draw(g);
+        HealthUI.draw(g);
     }
 
 }
