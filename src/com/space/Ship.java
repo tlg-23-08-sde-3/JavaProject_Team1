@@ -98,6 +98,10 @@ class Ship extends SpaceObject {
                 bullets.remove(i);
             }
         }
+        Bullet.bulletDelayCounter++;
+        if (Bullet.bulletDelayCounter > Bullet.BULLET_DELAY) {
+            Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
+        }
         //bullets.removeIf(bullet -> !bullet.isActive);
         //System.out.println(this);
     }
@@ -120,11 +124,14 @@ class Ship extends SpaceObject {
     }
 
     private void shoot() {
-        double centroidX = shape.getBounds().getCenterX();
-        double centroidY = shape.getBounds().getCenterY();
-        Bullet bullet = new Bullet(centroidX, centroidY, orientation);
-        bullets.add(bullet);
-        System.out.println(bullets.size());
+        if (Bullet.bulletDelayCounter >= Bullet.BULLET_DELAY) {
+            double centroidX = shape.getBounds().getCenterX();
+            double centroidY = shape.getBounds().getCenterY();
+            Bullet bullet = new Bullet(centroidX, centroidY, orientation);
+            bullets.add(bullet);
+            Bullet.bulletDelayCounter = 0;
+            System.out.println(bullets.size());
+        }
     }
 
     public void drawBullets(Graphics2D graphics) {
