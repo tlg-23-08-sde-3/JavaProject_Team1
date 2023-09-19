@@ -37,9 +37,10 @@ class Asteroid extends SpaceObject {
 
 
     public void setRandomLocation() {
-        double minLocationX = ((GamePanel.GAME_WIDTH / 2) - (PlayManager.WIDTH / 2) + 70); // edge of the rectangle + the largest size asteroid
-        double maxLocationX = PlayManager.WIDTH + 70;
-        double minLocationY = 70;
+        double offsetLocation = 70;
+        double minLocationX = MIN_LOCATION_X; // edge of the rectangle + the largest size asteroid
+        double maxLocationX = MAX_LOCATION_X;
+        double minLocationY = offsetLocation;
         double maxLocationY = GamePanel.GAME_HEIGHT - 70;
 
         locationX = minLocationX + (Math.random() * ((maxLocationX - minLocationX) + 1));

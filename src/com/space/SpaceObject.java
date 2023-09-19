@@ -8,8 +8,8 @@ import java.awt.geom.Path2D;
 class SpaceObject extends JPanel {
 
     // static variables
-    public static final double MIN_LOCATION_X = ((double) GamePanel.GAME_WIDTH / 2) - ((double) PlayManager.WIDTH / 2);
-    public static final double MAX_LOCATION_X = MIN_LOCATION_X + PlayManager.WIDTH;
+    public static final double MIN_LOCATION_X = 0;
+    public static final double MAX_LOCATION_X = GamePanel.GAME_WIDTH;
     public static final double MIN_LOCATION_Y = 0;
     public static final double MAX_LOCATION_Y = GamePanel.GAME_HEIGHT;
 
@@ -44,6 +44,14 @@ class SpaceObject extends JPanel {
         shape.transform(transform);
     }
 
+    public void moveTo(double x, double y) {
+        locationX = x;
+        locationY = y;
+        AffineTransform transform = new AffineTransform();
+        transform.translate(x, y);
+        shape.transform(transform);
+    }
+
     public void accelerate(double delta) {
         velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
         velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
@@ -59,15 +67,15 @@ class SpaceObject extends JPanel {
         if (MAX < velocityX) {
             velocityX = MAX;
         }
-        else if (velocityX*(-1) < MAX*(-1)) {
-            velocityX = MAX * (-1);
+        if (-MAX > velocityX) {
+            velocityX = -MAX;
         }
 
         if (MAX < velocityY) {
             velocityY = MAX;
         }
-        else if (velocityY*(-1) < MAX*(-1)) {
-            velocityY = MAX * (-1);
+        if (-MAX > velocityY) {
+            velocityY = -MAX;
         }
         move();
     }
@@ -102,10 +110,9 @@ class SpaceObject extends JPanel {
     }
 
     public void rotateShape(double angle) {
-        double centroidX = shape.getBounds().getCenterX();
-        double centroidY = shape.getBounds().getCenterY();
+        double[] centroid = getCentroid();
         AffineTransform transform = new AffineTransform();
-        transform.rotate(Math.toRadians(angle), centroidX, centroidY);
+        transform.rotate(Math.toRadians(angle), centroid[0], centroid[1]);
         shape.transform(transform);
     }
 
@@ -123,7 +130,11 @@ class SpaceObject extends JPanel {
     }
 
     // additional useful methods...
-
+    public double[] getCentroid(){
+        double centroidX = shape.getBounds().getCenterX();
+        double centroidY = shape.getBounds().getCenterY();
+        return new double[]{centroidX,centroidY};
+    }
 
     // getters and setters...
     public boolean isActive() {

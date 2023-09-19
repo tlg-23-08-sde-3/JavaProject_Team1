@@ -2,9 +2,14 @@ package com.space;
 
 import java.awt.*;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Main Player Ship class
+ */
 class Ship extends SpaceObject {
 
     private final double MAX_SPEED = 1.0;
@@ -20,6 +25,9 @@ class Ship extends SpaceObject {
         defaultShip();
     }
 
+    /**
+     * Handler to generate a default ship at a default location
+     */
     public void defaultShip() {
         // default shape of the ship
         Path2D.Double shipShape = new Path2D.Double();
@@ -29,13 +37,16 @@ class Ship extends SpaceObject {
         shipShape.lineTo(615, 340);
         shipShape.closePath();
 
-        locationX = (double) PlayManager.WIDTH / 2;
+        locationX = (double) GamePanel.GAME_WIDTH / 2;
         locationY = (double) GamePanel.GAME_HEIGHT / 2;
         velocityX = 0;
         velocityY = 0;
         shape = shipShape;
     }
 
+    /**
+     * Utilizes KeyListener and handles object movement based on keys pressed/released
+     */
     private void handleMovement() {
         if (KeyHandler.upPressed) {
             accelerate(accelerationRate, MAX_SPEED, MIN_SPEED);
@@ -72,24 +83,52 @@ class Ship extends SpaceObject {
         }
     }
 
+    /**
+     * Allows the ship to wrap around the screen
+     * If the ship goes off the left side, it will reappear on the right side, same
+     */
+    private void wrapAroundScreen() {
+        double[] centroid = getCentroid();
+        Point2D centroidPoint = new Point2D.Double(centroid[0], centroid[1]);
+        if (centroidPoint.getX() < 0) {
+            moveTo(GamePanel.GAME_WIDTH, 0);
+        }
+        if (centroidPoint.getX() > GamePanel.GAME_WIDTH) {
+            moveTo(-GamePanel.GAME_WIDTH, 0);
+        }
+        if (centroidPoint.getY() < 0) {
+            moveTo(0, GamePanel.GAME_HEIGHT);
+        }
+        if (centroidPoint.getY() > GamePanel.GAME_HEIGHT) {
+            moveTo(0, -GamePanel.GAME_HEIGHT);
+        }
+    }
+
+    /**
+     * Decelerates if the current magnitude is above the max speed.
+     * Cleans up some jittery movement when swapping directions.
+     */
     private void limitSpeed() {
         if (getSqrMagnitude() > MAX_SPEED) {
-            System.out.println("limitspeed CALLEDDD");
             decelerate(decelerationRate, MAX_SPEED, MIN_SPEED);
         }
     }
 
-    private void rotate() {
-        rotateBy(angle);
-    }
-
+    /**
+     * General execution method for updating functions every frame
+     */
     public void update() {
         handleMovement();
         limitSpeed();
-        rotate();
+        rotateBy(angle);
+        wrapAroundScreen();
         updateBullets();
     }
 
+    /**
+     * Move each bullet and remove them if they are off of the screen
+     * Controls delay counter to delay how often bullets are instantiated
+     */
     private void updateBullets() {
         bullets.forEach(Bullet::move);
         for (int i = 0; i < bullets.size(); i++) {
@@ -103,7 +142,7 @@ class Ship extends SpaceObject {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
         }
         //bullets.removeIf(bullet -> !bullet.isActive);
-        //System.out.println(this);
+        System.out.println(this);
     }
 
     @Override
@@ -118,11 +157,18 @@ class Ship extends SpaceObject {
                 velocityY, getSqrMagnitude(), locationX, locationY, orientation);
     }
 
-    // get the square magnitude of the ship's velocity
+    /**
+     * Get positive magnitude (add squared values of velocities then square root)
+     * @return double
+     */
     private double getSqrMagnitude() {
         return Math.sqrt(Math.pow(velocityX, 2) + Math.pow(velocityY, 2));
     }
 
+    /**
+     * Creates a new bullet if a certain amount of frames has passed.
+     * Adds the bullet to a list for cleanup later.
+     */
     private void shoot() {
         if (Bullet.bulletDelayCounter >= Bullet.BULLET_DELAY) {
             double centroidX = shape.getBounds().getCenterX();
@@ -134,6 +180,9 @@ class Ship extends SpaceObject {
         }
     }
 
+    /**
+     * Draw each bullet and pass along to their own draw function for handling movement
+     */
     public void drawBullets(Graphics2D graphics) {
         bullets.forEach(bullet -> bullet.draw(graphics));
     }
