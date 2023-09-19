@@ -116,9 +116,12 @@ class SpaceObject extends JPanel {
         shape.transform(transform);
     }
 
+    public boolean collidesWith(SpaceObject other) {
+        return this.shape.intersects(other.shape.getBounds2D());
+    }
 
     public boolean intersectsWith(SpaceObject other) {
-        return this.shape.getBounds().intersects(other.shape.getBounds());
+        return this.shape.getBounds2D().intersects(other.shape.getBounds2D());
     }
 
     public void destroy() {

@@ -2,6 +2,8 @@ package com.space;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
+import java.util.ArrayList;
+import java.util.List;
 
 class Asteroid extends SpaceObject {
 
@@ -9,15 +11,37 @@ class Asteroid extends SpaceObject {
 
     public Asteroid() {
         super();
-        defaultAsteroid();
+        setRandomAsteroid();
     }
 
-    public void defaultAsteroid() {
+    public Asteroid(AsteroidSize size, double locationX, double locationY, double velocityX, double velocityY) {
+        this.size = size;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
+        setRandomShape();
+    }
+
+    public void setRandomAsteroid() {
         setRandomSize();
         setRandomLocation();
         setRandomShape();
-        velocityX = 0.0;
-        velocityY = 0.0;
+        setRandomVelocity();
+    }
+
+    public void setRandomVelocity() {
+        double velocityRange = 1.0;
+        switch (size) {
+            case MEDIUM:
+                velocityRange = 1.5;
+                break;
+            case SMALL:
+                velocityRange = 2.0;
+                break;
+        }
+        velocityX = (Math.random() * 2 * velocityRange) - velocityRange;
+        velocityY = (Math.random() * 2 * velocityRange) - velocityRange;
     }
 
     public void setRandomSize() {
@@ -34,7 +58,6 @@ class Asteroid extends SpaceObject {
                 break;
         }
     }
-
 
     public void setRandomLocation() {
         double offSetLocation = AsteroidSize.LARGE.getUpperLimit();
@@ -68,5 +91,31 @@ class Asteroid extends SpaceObject {
         AffineTransform transform = new AffineTransform();
         transform.translate(velocityX, velocityY);
         shape.transform(transform);
+    }
+
+    public void bounce() {
+        velocityX = -velocityX;
+        velocityY = -velocityY;
+    }
+
+    public List<Asteroid> split() {
+        List<Asteroid> splitAsteroids = new ArrayList<>();
+        switch (size) {
+            case LARGE:
+                for (int i = 0; i < 2; i++) {
+                    Asteroid asteroid = new Asteroid(AsteroidSize.MEDIUM, locationX, locationY, velocityX, velocityY);
+                    splitAsteroids.add(asteroid);
+                }
+                break;
+            case MEDIUM:
+                for (int i = 0; i < 2; i++) {
+                    Asteroid asteroid = new Asteroid(AsteroidSize.SMALL, locationX, locationY, velocityX, velocityY);
+                    splitAsteroids.add(asteroid);
+                }
+                break;
+            case SMALL:
+                break;
+        }
+        return splitAsteroids;
     }
 }
