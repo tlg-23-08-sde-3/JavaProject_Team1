@@ -1,5 +1,7 @@
 package com.space;
 
+import com.space.audio.Audio;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
@@ -11,7 +13,7 @@ class Bullet extends SpaceObject {
 
     private final double BULLET_SPEED = 5.0;
 
-    private final String bulletAudioString = "./src/com/space/audio/laserShoot.wav";
+    private final String bulletAudioString = "assets/audio/laserShoot.wav";
     public Audio audio;
 
     public Bullet(double locationX, double locationY, double orientation) {

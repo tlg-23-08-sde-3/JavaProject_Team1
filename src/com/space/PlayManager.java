@@ -1,5 +1,8 @@
 package com.space;
 
+import com.space.ui.HealthUI;
+import com.space.ui.ScoreUI;
+
 import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +27,8 @@ class PlayManager {
         ship.draw(g);
         ship.drawBullets(g);
         asteroids.forEach(asteroid -> asteroid.draw(g));
+        ScoreUI.draw(g);
+        HealthUI.draw(g);
     }
 
     public void checkAsteroidCollisions() {

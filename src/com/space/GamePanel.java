@@ -3,7 +3,7 @@ package com.space;
 import javax.swing.*;
 import java.awt.*;
 
-class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
 
     public static final int GAME_WIDTH = 1280;
     public static final int GAME_HEIGHT = 720;
