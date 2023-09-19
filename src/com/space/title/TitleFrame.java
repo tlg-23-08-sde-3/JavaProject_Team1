@@ -9,12 +9,12 @@ import java.awt.*;
  * Title Screen for application
  * Launches game and hides this window on "Start Game" button
  */
-public class TitleFrame extends JFrame{
+public class TitleFrame extends JFrame {
     JFrame frame = new JFrame("Asteroids");
 
     public TitleFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280,720);
+        frame.setSize(1280, 720);
         frame.setResizable(false);
         frame.setBackground(Color.BLACK);
 
