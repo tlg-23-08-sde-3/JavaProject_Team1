@@ -6,6 +6,9 @@ import java.awt.geom.Path2D;
 
 class Bullet extends SpaceObject {
 
+    public static final int BULLET_DELAY = 30;
+    public static int bulletDelayCounter = BULLET_DELAY;
+
     private final double BULLET_SPEED = 5.0;
 
     private final String bulletAudioString = "./src/com/space/audio/laserShoot.wav";
