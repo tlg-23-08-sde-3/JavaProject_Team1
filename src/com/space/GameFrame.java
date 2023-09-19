@@ -17,7 +17,6 @@ public class GameFrame {
         frame.setResizable(false);
         frame.setBackground(Color.BLACK);
         frame.pack();
-
     }
 
     public void startGame() {

@@ -87,10 +87,10 @@ class SpaceObject extends JPanel {
     }
 
     public void decelerate(double delta, double MAX, double MIN) {
-        if (velocityX > MIN && velocityX*(-1) > MIN*(-1)) {
+        if (velocityX > MIN && velocityX * (-1) > MIN * (-1)) {
             velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
         }
-        if (velocityY > MIN && velocityY*(-1) > MIN*(-1)) {
+        if (velocityY > MIN && velocityY * (-1) > MIN * (-1)) {
             velocityY += (Math.cos(Math.toRadians(orientation)) * delta);
         }
         move();
@@ -130,10 +130,10 @@ class SpaceObject extends JPanel {
     }
 
     // additional useful methods...
-    public double[] getCentroid(){
+    public double[] getCentroid() {
         double centroidX = shape.getBounds().getCenterX();
         double centroidY = shape.getBounds().getCenterY();
-        return new double[]{centroidX,centroidY};
+        return new double[]{centroidX, centroidY};
     }
 
     // getters and setters...

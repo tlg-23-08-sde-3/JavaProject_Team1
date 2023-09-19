@@ -5,7 +5,7 @@ import java.awt.geom.Path2D;
 
 class Asteroid extends SpaceObject {
 
-    private double[] sizeLimits;
+    private AsteroidSize size;
 
     public Asteroid() {
         super();
@@ -24,27 +24,26 @@ class Asteroid extends SpaceObject {
         int randomSize = (int) (Math.random() * 3);
         switch (randomSize) {
             case 0:
-                sizeLimits = new double[]{10.0, 30.0};       // small size, arbitrary value for now
+                size = AsteroidSize.SMALL;
                 break;
             case 1:
-                sizeLimits = new double[]{30.0, 50.0};       // medium size, arbitrary value for now
+                size = AsteroidSize.MEDIUM;
                 break;
             case 2:
-                sizeLimits = new double[]{50.0, 70.0};       // large size, arbitrary value for now
+                size = AsteroidSize.LARGE;
                 break;
         }
     }
 
 
     public void setRandomLocation() {
-        double offsetLocation = 70;
-        double minLocationX = MIN_LOCATION_X; // edge of the rectangle + the largest size asteroid
-        double maxLocationX = MAX_LOCATION_X;
-        double minLocationY = offsetLocation;
-        double maxLocationY = GamePanel.GAME_HEIGHT - 70;
-
-        locationX = minLocationX + (Math.random() * ((maxLocationX - minLocationX) + 1));
-        locationY = minLocationY + (Math.random() * ((maxLocationY - minLocationY) + 1));
+        double offSetLocation = AsteroidSize.LARGE.getUpperLimit();
+        double minLocationX = MIN_LOCATION_X + offSetLocation;
+        double maxLocationX = MAX_LOCATION_X - offSetLocation;
+        double minLocationY = MIN_LOCATION_Y + offSetLocation;
+        double maxLocationY = MAX_LOCATION_Y - offSetLocation;
+        locationX = minLocationX + (Math.random() * (maxLocationX - minLocationX));
+        locationY = minLocationY + (Math.random() * (maxLocationY - minLocationY));
     }
 
     public void setRandomShape() {
@@ -52,7 +51,7 @@ class Asteroid extends SpaceObject {
         boolean firstPoint = true;
         for (int i = 0; i < 6; i++) {
             int angle = 60 * i;
-            double distance = sizeLimits[0] + (int) (Math.random() * ((sizeLimits[1] - sizeLimits[0]) + 1));
+            double distance = size.getLowerLimit() + (int) (Math.random() * (size.getUpperLimit() - size.getLowerLimit()));
             double x = locationX + (distance * Math.cos(Math.toRadians(angle)));
             double y = locationY + (distance * Math.sin(Math.toRadians(angle)));
             if (firstPoint) {

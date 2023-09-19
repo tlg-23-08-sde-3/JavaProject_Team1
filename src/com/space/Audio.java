@@ -24,8 +24,7 @@ class Audio {
         try {
             clip.close();
             ais.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
 
@@ -36,8 +35,7 @@ class Audio {
             ais = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(ais);
-        }
-        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             System.out.println("Issue with loading and opening the file!\n" + e.getLocalizedMessage());
         }
     }

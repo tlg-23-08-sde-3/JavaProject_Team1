@@ -20,19 +20,21 @@ class Bullet extends SpaceObject {
         velocityX = BULLET_SPEED * Math.sin(Math.toRadians(orientation));
         velocityY = -BULLET_SPEED * Math.cos(Math.toRadians(orientation));
         createBulletShape();
-
         audio = new Audio(bulletAudioString);
         audio.playSound();
     }
 
     private void createBulletShape() {
         Path2D.Double bulletShape = new Path2D.Double();
-        bulletShape.moveTo(0, -2); // Top point
-        bulletShape.lineTo(1, 2);  // Bottom right
-        bulletShape.lineTo(-1, 2); // Bottom left
+        double size = 1;
+        bulletShape.moveTo(-size, -size);
+        bulletShape.lineTo(size, -size);
+        bulletShape.lineTo(size, size);
+        bulletShape.lineTo(-size, size);
         bulletShape.closePath();
         shape = bulletShape;
     }
+
 
     public void draw(Graphics2D graphics) {
         AffineTransform oldTransform = graphics.getTransform();

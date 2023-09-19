@@ -78,7 +78,7 @@ class Ship extends SpaceObject {
         }
 
         if (KeyHandler.shootPressed) {
-            System.out.println("pew pew");
+            //System.out.println("pew pew");
             shoot();
         }
     }
@@ -142,7 +142,7 @@ class Ship extends SpaceObject {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
         }
         //bullets.removeIf(bullet -> !bullet.isActive);
-        System.out.println(this);
+        //System.out.println(this);
     }
 
     @Override
@@ -151,14 +151,15 @@ class Ship extends SpaceObject {
                         "Bounds:   (x)%s (y)%s \n" +
                         "Velocity: (x)%s (y)%s (sqrM)%s \n" +
                         "Location: (x)%s (y)%s \n" +
-                        "Angle:    (d)%s \n"+
-                            "-----------------------------\n\n",
+                        "Angle:    (d)%s \n" +
+                        "-----------------------------\n\n",
                 shape.getBounds().x, shape.getBounds().y, velocityX,
                 velocityY, getSqrMagnitude(), locationX, locationY, orientation);
     }
 
     /**
      * Get positive magnitude (add squared values of velocities then square root)
+     *
      * @return double
      */
     private double getSqrMagnitude() {

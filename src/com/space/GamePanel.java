@@ -3,14 +3,14 @@ package com.space;
 import javax.swing.*;
 import java.awt.*;
 
-class GamePanel extends JPanel implements Runnable{
+class GamePanel extends JPanel implements Runnable {
 
     public static final int GAME_WIDTH = 1280;
     public static final int GAME_HEIGHT = 720;
     private static final Dimension SCREEN_RESOLUTION = new Dimension(GAME_WIDTH, GAME_HEIGHT);
     private final int FPS = 60;
 
-    PlayManager playManager = new PlayManager();;
+    PlayManager playManager = new PlayManager();
     Thread gameThread;
 
 
@@ -31,7 +31,7 @@ class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         // Generic Game Loop
-        double drawInterval = 1_000_000_000/FPS;
+        double drawInterval = 1_000_000_000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -58,7 +58,7 @@ class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D g2d = (Graphics2D)g;
+        Graphics2D g2d = (Graphics2D) g;
         playManager.draw(g2d);
     }
 }
