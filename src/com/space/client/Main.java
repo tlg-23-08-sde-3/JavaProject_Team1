@@ -5,6 +5,6 @@ import com.space.title.TitleFrame;
 
 class Main {
     public static void main(String[] args) {
-        TitleFrame title = new TitleFrame();
+        new TitleFrame();
     }
 }
