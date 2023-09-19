@@ -12,7 +12,7 @@ class PlayManager {
 
     Ship ship = new Ship();
     List<Asteroid> asteroids = Stream.generate(Asteroid::new)
-            .limit(20)
+            .limit(50)
             .collect(Collectors.toList());
 
     public void update() {
@@ -37,11 +37,33 @@ class PlayManager {
             for (int j = i + 1; j < asteroids.size(); j++) {
                 Asteroid asteroid2 = asteroids.get(j);
                 if (asteroid1.intersectsWith(asteroid2)) {
-                    System.out.println("YES");
+                    bounceAsteroids(asteroid1, asteroid2);
                 }
             }
         }
     }
+
+    public void bounceAsteroids(Asteroid asteroid1, Asteroid asteroid2) {
+        double[] centroid1 = asteroid1.getCentroid();
+        double[] centroid2 = asteroid2.getCentroid();
+
+        double dx = centroid2[0] - centroid1[0];
+        double dy = centroid2[1] - centroid1[1];
+
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        double nx = dx / distance;
+        double ny = dy / distance;
+
+        double bounceFactor = 0.1;
+
+        asteroid1.velocityX -= nx * bounceFactor;
+        asteroid1.velocityY -= ny * bounceFactor;
+        asteroid2.velocityX += nx * bounceFactor;
+        asteroid2.velocityY += ny * bounceFactor;
+    }
+
+
 }
 
 

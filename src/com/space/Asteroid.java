@@ -31,13 +31,13 @@ class Asteroid extends SpaceObject {
     }
 
     public void setRandomVelocity() {
-        double velocityRange = 0.5;
+        double velocityRange = 0.3;
         switch (size) {
             case MEDIUM:
-                velocityRange = 1.0;
+                velocityRange = 0.6;
                 break;
             case SMALL:
-                velocityRange = 1.5;
+                velocityRange = 0.9;
                 break;
         }
         velocityX = (Math.random() * 2 * velocityRange) - velocityRange;
@@ -72,8 +72,8 @@ class Asteroid extends SpaceObject {
     public void setRandomShape() {
         shape = new Path2D.Double();
         boolean firstPoint = true;
-        for (int i = 0; i < 6; i++) {
-            int angle = 60 * i;
+        for (int i = 0; i < 10; i++) {
+            int angle = 36 * i;
             double distance = size.getLowerLimit() + (int) (Math.random() * (size.getUpperLimit() - size.getLowerLimit()));
             double x = locationX + (distance * Math.cos(Math.toRadians(angle)));
             double y = locationY + (distance * Math.sin(Math.toRadians(angle)));
@@ -91,8 +91,8 @@ class Asteroid extends SpaceObject {
         AffineTransform transform = new AffineTransform();
         transform.translate(velocityX, velocityY);
         shape.transform(transform);
+        limitVelocity(1);
     }
-
 
     public List<Asteroid> split() {
         List<Asteroid> splitAsteroids = new ArrayList<>();

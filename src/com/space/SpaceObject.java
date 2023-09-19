@@ -98,6 +98,14 @@ class SpaceObject extends JPanel {
         move();
     }
 
+    public void limitVelocity(double limit) {
+        double currentSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        if (currentSpeed > limit) {
+            velocityX *= limit / currentSpeed;
+            velocityY *= limit / currentSpeed;
+        }
+    }
+
     // rotate by a certain amount
     public void rotateBy(double angle) {
         setOrientation(orientation + angle);
