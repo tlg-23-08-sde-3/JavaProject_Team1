@@ -133,9 +133,27 @@ class SpaceObject extends JPanel {
         return !thisArea.isEmpty();
     }
 
-    public void destroy() {
-        isActive = false;
+    public void checkBounds() {
+        if (locationX < MIN_LOCATION_X || locationX > MAX_LOCATION_X || locationY < MIN_LOCATION_Y || locationY > MAX_LOCATION_Y) {
+            isActive = false;
+        }
     }
+
+    public void bounce(SpaceObject other) {
+        double[] centroid1 = this.getCentroid();
+        double[] centroid2 = other.getCentroid();
+        double dx = centroid2[0] - centroid1[0];
+        double dy = centroid2[1] - centroid1[1];
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        double nx = dx / distance;
+        double ny = dy / distance;
+        double bounceFactor = 0.1;
+        this.velocityX -= nx * bounceFactor;
+        this.velocityY -= ny * bounceFactor;
+        other.velocityX += nx * bounceFactor;
+        other.velocityY += ny * bounceFactor;
+    }
+
 
     public void draw(Graphics2D graphics) {
         graphics.draw(shape);

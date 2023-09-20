@@ -38,7 +38,8 @@ class Ship extends SpaceObject {
         shipShape.lineTo(625, 350);
         shipShape.lineTo(615, 340);
         shipShape.closePath();
-
+        angle = 0;
+        orientation = 0;
         locationX = (double) GamePanel.GAME_WIDTH / 2;
         locationY = (double) GamePanel.GAME_HEIGHT / 2;
         velocityX = 0;
@@ -80,7 +81,6 @@ class Ship extends SpaceObject {
         }
 
         if (KeyHandler.shootPressed) {
-            //System.out.println("pew pew");
             shoot();
         }
     }
@@ -132,19 +132,14 @@ class Ship extends SpaceObject {
      * Controls delay counter to delay how often bullets are instantiated
      */
     private void updateBullets() {
-        bullets.forEach(Bullet::move);
-//        for (int i = 0; i < bullets.size(); i++) {
-//            if (!bullets.get(i).isActive) {
-//                bullets.get(i).audio.closeAudioSystem();
-//                bullets.remove(i);
-//            }
-//        }
+        bullets.forEach(bullet -> {
+            bullet.move();
+            bullet.checkBounds();
+        });
         Bullet.bulletDelayCounter++;
         if (Bullet.bulletDelayCounter > Bullet.BULLET_DELAY) {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
         }
-        //bullets.removeIf(bullet -> !bullet.isActive);
-        //System.out.println(this);
     }
 
     @Override
@@ -188,5 +183,10 @@ class Ship extends SpaceObject {
      */
     public void drawBullets(Graphics2D graphics) {
         bullets.forEach(bullet -> bullet.draw(graphics));
+    }
+
+    public void destroy() {
+        System.out.println("Ship has been destroyed");
+        // other actions
     }
 }

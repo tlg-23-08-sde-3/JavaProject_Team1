@@ -93,6 +93,7 @@ class Asteroid extends SpaceObject {
         transform.translate(velocityX, velocityY);
         shape.transform(transform);
         limitVelocity(1);
+        checkBounds();
     }
 
     public List<Asteroid> split() {
@@ -114,6 +115,15 @@ class Asteroid extends SpaceObject {
         }
         isActive = false;
         return splitAsteroids;
+    }
+
+    @Override
+    public void checkBounds() {
+        double buffer = 0.0;
+        if (locationX < MIN_LOCATION_X - buffer || locationX > MAX_LOCATION_X + buffer ||
+                locationY < MIN_LOCATION_Y - buffer || locationY > MAX_LOCATION_Y + buffer) {
+            isActive = false;
+        }
     }
 
     public boolean isLarge() {
