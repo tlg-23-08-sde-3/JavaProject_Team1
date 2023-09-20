@@ -14,7 +14,7 @@ class PlayManager {
 
     Ship ship = new Ship();
     List<Asteroid> asteroids = Stream.generate(Asteroid::new)
-            .limit(1)
+            .limit(5)
             .collect(Collectors.toList());
 
     public void update() {
