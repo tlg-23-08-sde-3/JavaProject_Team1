@@ -15,8 +15,7 @@ public class FontLoader {
             File file = new File(fontString);
             font = Font.createFont(Font.TRUETYPE_FONT, file);
             font = font.deriveFont(fontSize);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
             font = new Font("Arial", Font.PLAIN, 22);
         }

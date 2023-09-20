@@ -36,7 +36,7 @@ public class EndGameFrame extends JFrame {
 
         JLabel scoreLabel = new JLabel("0");
         scoreLabel.setFont(font);
-        scoreLabel.setBounds(380,233,200,200);
+        scoreLabel.setBounds(380, 233, 200, 200);
         scoreLabel.setForeground(Color.WHITE);
         panel.add(scoreLabel);
 
@@ -46,7 +46,6 @@ public class EndGameFrame extends JFrame {
 
         JLabel titleLabel = new JLabel("Welcome to Asteroids");
         panel.add(titleLabel);
-
 
 
         frame.setVisible(true);
