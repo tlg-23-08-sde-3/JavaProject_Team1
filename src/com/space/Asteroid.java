@@ -97,16 +97,17 @@ class Asteroid extends SpaceObject {
 
     public List<Asteroid> split() {
         List<Asteroid> splitAsteroids = new ArrayList<>();
+        double[] centroid = getCentroid();
         switch (size) {
             case LARGE:
                 for (int i = 0; i < 2; i++) {
-                    Asteroid asteroid = new Asteroid(AsteroidSize.MEDIUM, locationX, locationY, velocityX, velocityY);
+                    Asteroid asteroid = new Asteroid(AsteroidSize.MEDIUM, centroid[0], centroid[1], velocityX, velocityY);
                     splitAsteroids.add(asteroid);
                 }
                 break;
             case MEDIUM:
                 for (int i = 0; i < 2; i++) {
-                    Asteroid asteroid = new Asteroid(AsteroidSize.SMALL, locationX, locationY, velocityX, velocityY);
+                    Asteroid asteroid = new Asteroid(AsteroidSize.SMALL, centroid[0], centroid[1], velocityX, velocityY);
                     splitAsteroids.add(asteroid);
                 }
                 break;

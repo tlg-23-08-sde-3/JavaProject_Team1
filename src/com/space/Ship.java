@@ -133,12 +133,12 @@ class Ship extends SpaceObject {
      */
     private void updateBullets() {
         bullets.forEach(Bullet::move);
-        for (int i = 0; i < bullets.size(); i++) {
-            if (!bullets.get(i).isActive) {
-                bullets.get(i).audio.closeAudioSystem();
-                bullets.remove(i);
-            }
-        }
+//        for (int i = 0; i < bullets.size(); i++) {
+//            if (!bullets.get(i).isActive) {
+//                bullets.get(i).audio.closeAudioSystem();
+//                bullets.remove(i);
+//            }
+//        }
         Bullet.bulletDelayCounter++;
         if (Bullet.bulletDelayCounter > Bullet.BULLET_DELAY) {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;

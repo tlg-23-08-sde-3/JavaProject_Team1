@@ -14,7 +14,7 @@ class PlayManager {
 
     Ship ship = new Ship();
     List<Asteroid> asteroids = Stream.generate(Asteroid::new)
-            .limit(3)
+            .limit(1)
             .collect(Collectors.toList());
 
     public void update() {
@@ -23,7 +23,6 @@ class PlayManager {
         checkAsteroidCollisions();
         checkBulletAsteroidCollisions();
         cleanupObjects();
-        System.out.println("Asteroids: " + asteroids.size());
     }
 
     public void draw(Graphics2D g) {
@@ -68,8 +67,9 @@ class PlayManager {
         for (Bullet bullet : ship.bullets) {
             for (Asteroid asteroid : asteroids) {
                 if (bullet.intersectsWith(asteroid)) {
-                    System.out.println("Collision detected!");
                     bullet.isActive = false;
+                    System.out.println("Bullet is false");
+                    bullet.audio.closeAudioSystem();
                     newAsteroids.addAll(asteroid.split());
                 }
             }
@@ -79,14 +79,14 @@ class PlayManager {
 
     public void cleanupObjects() {
         int initialBulletCount = ship.bullets.size();
-        ship.bullets.removeIf(bullet -> !bullet.isActive());
+        ship.bullets.removeIf(bullet -> !bullet.isActive);
         int finalBulletCount = ship.bullets.size();
-        System.out.println("Bullets before cleanup: " + initialBulletCount + ", after cleanup: " + finalBulletCount); // Debug print
+        //System.out.println("Bullets before cleanup: " + initialBulletCount + ", after cleanup: " + finalBulletCount);
 
         int initialAsteroidCount = asteroids.size();
-        asteroids.removeIf(asteroid -> !asteroid.isActive());
+        asteroids.removeIf(asteroid -> !asteroid.isActive);
         int finalAsteroidCount = asteroids.size();
-        System.out.println("Asteroids before cleanup: " + initialAsteroidCount + ", after cleanup: " + finalAsteroidCount); // Debug print
+        //System.out.println("Asteroids before cleanup: " + initialAsteroidCount + ", after cleanup: " + finalAsteroidCount);
     }
 
 

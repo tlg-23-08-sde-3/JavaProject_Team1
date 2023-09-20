@@ -8,7 +8,7 @@ import java.awt.geom.Path2D;
 
 class Bullet extends SpaceObject {
 
-    public static final int BULLET_DELAY = 30;
+    public static final int BULLET_DELAY = 15;
     public static int bulletDelayCounter = BULLET_DELAY;
 
     private final double bulletSpeed = 5;
