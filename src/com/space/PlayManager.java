@@ -13,7 +13,7 @@ class PlayManager {
 
     Ship ship = new Ship();
     List<Asteroid> asteroids = Stream.generate(Asteroid::new)
-            .limit(1)
+            .limit(10)
             .collect(Collectors.toList());
 
     public void update() {
@@ -40,7 +40,7 @@ class PlayManager {
     public void checkShipAsteroidCollisions() {
         for (Asteroid asteroid : asteroids) {
             if (ship.intersectsWith(asteroid)) {
-                // updateLives();
+                HealthUI.removeLife();
                 ship.defaultShip();
                 break;
             }
@@ -59,13 +59,12 @@ class PlayManager {
         }
     }
 
-
     public void checkBulletAsteroidCollisions() {
         List<Asteroid> newAsteroids = new ArrayList<>();
         for (Bullet bullet : ship.bullets) {
             for (Asteroid asteroid : asteroids) {
                 if (bullet.intersectsWith(asteroid)) {
-                    // updateScore();
+                    ScoreUI.addScore(10);
                     bullet.isActive = false;
                     bullet.audio.closeAudioSystem();
                     newAsteroids.addAll(asteroid.split());
