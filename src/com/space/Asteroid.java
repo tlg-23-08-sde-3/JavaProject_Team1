@@ -89,9 +89,7 @@ class Asteroid extends SpaceObject {
     }
 
     public void update() {
-        AffineTransform transform = new AffineTransform();
-        transform.translate(velocityX, velocityY);
-        shape.transform(transform);
+        move();
         limitVelocity(1);
         checkBounds();
     }
