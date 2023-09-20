@@ -1,7 +1,10 @@
 package com.space.frames;
 
 import com.space.GameFrame;
+import com.space.GamePanel;
 import com.space.ui.FontLoader;
+import com.space.ui.HealthUI;
+import com.space.ui.ScoreUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +19,7 @@ public class EndGameFrame extends JFrame {
     float fontSize = 30f;
     Font font = FontLoader.loadFont(fontString, fontSize);
 
-    public EndGameFrame() {
+    public EndGameFrame(int score) {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
@@ -28,13 +31,22 @@ public class EndGameFrame extends JFrame {
 
         panel.setLayout(null);
 
-        JButton button = new JButton("Start Game");
-        button.addActionListener(e -> loadGame());
-        button.setLayout(null);
-        button.setBounds(520, 400, 200, 50);
-        //panel.add(button);
+        // Restart Game Button
+        JButton startGameButton = new JButton("Play Again!");
+        startGameButton.addActionListener(e -> loadGame());
+        startGameButton.setLayout(null);
+        startGameButton.setBounds(1020, 400, 200, 50);
+        panel.add(startGameButton);
 
-        JLabel scoreLabel = new JLabel("0");
+        // Close Game Button
+        JButton closeButton = new JButton("Quit");
+        closeButton.addActionListener(e -> closeGame());
+        closeButton.setLayout(null);
+        closeButton.setBounds(1020, 500, 200, 50);
+        panel.add(closeButton);
+
+        // Last game score
+        JLabel scoreLabel = new JLabel(Integer.toString(score));
         scoreLabel.setFont(font);
         scoreLabel.setBounds(380, 233, 200, 200);
         scoreLabel.setForeground(Color.WHITE);
@@ -52,9 +64,13 @@ public class EndGameFrame extends JFrame {
     }
 
     private void loadGame() {
-        frame.setVisible(false);
-        GameFrame game = new GameFrame();
-        game.startGame();
+
+        ResetGame.reset();
+        frame.dispose();
+    }
+
+    private void closeGame() {
+        System.exit(0);
     }
 
 }
