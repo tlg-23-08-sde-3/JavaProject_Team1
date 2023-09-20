@@ -13,7 +13,7 @@ class PlayManager {
 
     Ship ship = new Ship();
     List<Asteroid> asteroids = Stream.generate(Asteroid::new)
-            .limit(10)
+            .limit(20)
             .collect(Collectors.toList());
 
     public void update() {
@@ -29,8 +29,6 @@ class PlayManager {
         g.setColor(Color.white);
         g.setStroke(new BasicStroke(2f));
         ship.draw(g);
-        //ship.bullets.stream().filter(Bullet::isActive).forEach(bullet -> bullet.draw(g));
-        //asteroids.stream().filter(Asteroid::isActive).forEach(asteroid -> asteroid.draw(g));
         ship.bullets.forEach(bullet -> bullet.draw(g));
         asteroids.forEach(asteroid -> asteroid.draw(g));
         ScoreUI.draw(g);
@@ -38,11 +36,13 @@ class PlayManager {
     }
 
     public void checkShipAsteroidCollisions() {
-        for (Asteroid asteroid : asteroids) {
-            if (ship.intersectsWith(asteroid)) {
-                HealthUI.removeLife();
-                ship.defaultShip();
-                break;
+        if (!ship.isInvulnerable) {
+            for (Asteroid asteroid : asteroids) {
+                if (ship.intersectsWith(asteroid)) {
+                    HealthUI.removeLife();
+                    ship.defaultShip();
+                    break;
+                }
             }
         }
     }

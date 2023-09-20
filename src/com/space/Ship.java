@@ -1,18 +1,20 @@
 package com.space;
 
-import com.space.ui.ScoreUI;
-
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Main Player Ship class
  */
 class Ship extends SpaceObject {
+
+    public boolean isInvulnerable = false;
+    private int invulnerableTime = 0;
+    private final int INVULNERABLE_DURATION = 300;
+
 
     private final double MAX_SPEED = 1.0;
     private final double MIN_SPEED = 0.005;
@@ -45,6 +47,8 @@ class Ship extends SpaceObject {
         velocityX = 0;
         velocityY = 0;
         shape = shipShape;
+        isInvulnerable = true;
+        invulnerableTime = INVULNERABLE_DURATION;
     }
 
     /**
@@ -125,6 +129,16 @@ class Ship extends SpaceObject {
         rotateBy(angle);
         wrapAroundScreen();
         updateBullets();
+        invulnerableCounter();
+    }
+
+    private void invulnerableCounter() {
+        if (isInvulnerable) {
+            invulnerableTime--;
+            if (invulnerableTime <= 0) {
+                isInvulnerable = false;
+            }
+        }
     }
 
     /**
@@ -141,6 +155,7 @@ class Ship extends SpaceObject {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
         }
     }
+
 
     @Override
     public String toString() {
