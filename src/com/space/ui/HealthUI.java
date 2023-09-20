@@ -21,12 +21,8 @@ public class HealthUI {
     public static void removeLife() {
         life -= 1;
         if (life <= 0) {
-            endGame();
+            GamePanel.isRunning = false;    // ends game
         }
-    }
-
-    public static void endGame() {
-
     }
 
     public static void draw(Graphics2D g) {
