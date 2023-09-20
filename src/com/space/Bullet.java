@@ -11,7 +11,7 @@ class Bullet extends SpaceObject {
     public static final int BULLET_DELAY = 30;
     public static int bulletDelayCounter = BULLET_DELAY;
 
-    private final double bulletSpeed = 5.0;
+    private final double bulletSpeed = 5;
 
     private final String bulletAudioString = "assets/audio/laserShoot.wav";
     public Audio audio;
@@ -29,18 +29,13 @@ class Bullet extends SpaceObject {
     private void createBulletShape() {
         Path2D.Double bulletShape = new Path2D.Double();
         double size = 1;
-        bulletShape.moveTo(-size, -size);
-        bulletShape.lineTo(size, -size);
-        bulletShape.lineTo(size, size);
-        bulletShape.lineTo(-size, size);
+        bulletShape.moveTo(locationX - size, locationY - size);
+        bulletShape.lineTo(locationX + size, locationY - size);
+        bulletShape.lineTo(locationX + size, locationY + size);
+        bulletShape.lineTo(locationX - size, locationY + size);
         bulletShape.closePath();
         shape = bulletShape;
     }
 
-    public void draw(Graphics2D graphics) {
-        AffineTransform oldTransform = graphics.getTransform();
-        graphics.translate(locationX, locationY);
-        graphics.draw(shape);
-        graphics.setTransform(oldTransform);
-    }
+
 }

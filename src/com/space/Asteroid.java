@@ -15,6 +15,7 @@ class Asteroid extends SpaceObject {
     }
 
     public Asteroid(AsteroidSize size, double locationX, double locationY, double velocityX, double velocityY) {
+        super();
         this.size = size;
         this.locationX = locationX;
         this.locationY = locationY;
@@ -109,9 +110,17 @@ class Asteroid extends SpaceObject {
                     splitAsteroids.add(asteroid);
                 }
                 break;
-            case SMALL:
-                break;
         }
+        isActive = false;
         return splitAsteroids;
     }
+
+    public boolean isLarge() {
+        return this.size == AsteroidSize.LARGE;
+    }
+
+    public boolean isMedium() {
+        return this.size == AsteroidSize.MEDIUM;
+    }
+
 }
