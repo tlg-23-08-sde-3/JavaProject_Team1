@@ -66,7 +66,7 @@ class PlayManager {
                 if (bullet.intersectsWith(asteroid)) {
                     ScoreUI.addScore(10);
                     bullet.isActive = false;
-                    bullet.audio.closeAudioSystem();
+                    // bullet.audio.closeAudioSystem();
                     newAsteroids.addAll(asteroid.split());
                 }
             }

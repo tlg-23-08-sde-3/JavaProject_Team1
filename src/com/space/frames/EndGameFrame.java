@@ -18,6 +18,7 @@ public class EndGameFrame extends JFrame {
     String fontString = "assets/fonts/AtariFont.ttf";
     float fontSize = 30f;
     Font font = FontLoader.loadFont(fontString, fontSize);
+    boolean isHighScore = false;
 
     public EndGameFrame(int score) {
 
@@ -35,14 +36,14 @@ public class EndGameFrame extends JFrame {
         JButton startGameButton = new JButton("Play Again!");
         startGameButton.addActionListener(e -> loadGame());
         startGameButton.setLayout(null);
-        startGameButton.setBounds(1020, 400, 200, 50);
+        startGameButton.setBounds(1020, 300, 200, 50);
         panel.add(startGameButton);
 
         // Close Game Button
         JButton closeButton = new JButton("Quit");
         closeButton.addActionListener(e -> closeGame());
         closeButton.setLayout(null);
-        closeButton.setBounds(1020, 500, 200, 50);
+        closeButton.setBounds(1020, 400, 200, 50);
         panel.add(closeButton);
 
         // Last game score
@@ -51,6 +52,24 @@ public class EndGameFrame extends JFrame {
         scoreLabel.setBounds(380, 233, 200, 200);
         scoreLabel.setForeground(Color.WHITE);
         panel.add(scoreLabel);
+
+        // High Score
+        int highScore = getHighScore();
+        JLabel highScoreLabel = new JLabel(Integer.toString(highScore));
+        highScoreLabel.setFont(font);
+        highScoreLabel.setBounds(380, 333, 200, 200);
+        highScoreLabel.setForeground(Color.WHITE);
+        panel.add(highScoreLabel);
+
+        // Check for new high score
+        saveHighScore(score, highScore);
+        if (isHighScore) {
+            JLabel newHighScoreLabel = new JLabel("New HighScore!");
+            newHighScoreLabel.setFont(font);
+            newHighScoreLabel.setBounds(50, 133, 700, 200);
+            newHighScoreLabel.setForeground(Color.WHITE);
+            panel.add(newHighScoreLabel);
+        }
 
         JLabel titleImage = new JLabel(new ImageIcon("assets/images/EndScreen.png"));
         panel.add(titleImage);
@@ -61,6 +80,17 @@ public class EndGameFrame extends JFrame {
 
 
         frame.setVisible(true);
+    }
+
+    private void saveHighScore(int score, int highScore) {
+        if (score > highScore) {
+            SaveHandler.save(score);
+            isHighScore = true;
+        }
+    }
+
+    private int getHighScore() {
+        return SaveHandler.load();
     }
 
     private void loadGame() {
