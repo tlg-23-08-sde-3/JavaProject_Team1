@@ -64,7 +64,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void endGame() {
-        gameThread.interrupt();
         gameThread = null;
         System.out.println("Game over");
         this.setVisible(false);
