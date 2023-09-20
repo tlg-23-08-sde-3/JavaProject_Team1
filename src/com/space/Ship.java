@@ -13,7 +13,7 @@ class Ship extends SpaceObject {
 
     public boolean isInvulnerable = false;
     private int invulnerableTime = 0;
-    private final int INVULNERABLE_DURATION = 300;
+    private final int INVULNERABLE_DURATION = 180; // 3 seconds
 
 
     private final double MAX_SPEED = 1.0;
@@ -132,6 +132,9 @@ class Ship extends SpaceObject {
         invulnerableCounter();
     }
 
+    /**
+     * Sets ship to be invulnerable upon creation to prevent immediately taking a hit on new lives
+     */
     private void invulnerableCounter() {
         if (isInvulnerable) {
             invulnerableTime--;
@@ -191,6 +194,22 @@ class Ship extends SpaceObject {
             Bullet.bulletDelayCounter = 0;
             //System.out.println("Bullets: " + bullets.size());
         }
+    }
+
+    /**
+     * Draw the ship based on vulnerability state
+     * If invulnerable, the ship will flash between grey and white
+     */
+    @Override
+    public void draw(Graphics2D g) {
+        if (isInvulnerable) {
+            if (invulnerableTime % 20 <= 10) {
+                g.setColor(Color.DARK_GRAY);
+            }
+        }
+        g.draw(shape);
+        g.setColor(Color.WHITE);
+
     }
 
     /**
