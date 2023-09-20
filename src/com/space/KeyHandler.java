@@ -3,7 +3,7 @@ package com.space;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-class KeyHandler implements KeyListener {
+public class KeyHandler implements KeyListener {
 
     public static boolean upPressed, leftPressed, rightPressed, shootPressed;
     public static boolean upReleased = true, leftReleased = true, rightReleased = true, shootReleased = true;
@@ -50,5 +50,16 @@ class KeyHandler implements KeyListener {
                 shootReleased = true;
                 break;
         }
+    }
+
+    public static void resetKeys () {
+        upPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+        shootPressed = false;
+        upReleased = true;
+        leftReleased = true;
+        rightReleased = true;
+        shootReleased = true;
     }
 }

@@ -5,10 +5,11 @@ import java.awt.*;
 
 public class GameFrame {
 
+    static JFrame frame;
     GamePanel panel;
 
     public GameFrame() {
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         panel = new GamePanel();
         frame.add(panel);
         frame.setVisible(true);
@@ -21,6 +22,10 @@ public class GameFrame {
 
     public void startGame() {
         panel.startGame();
+    }
+
+    public static void disposeGame() {
+        frame.dispose();
     }
 
 
