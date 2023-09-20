@@ -3,7 +3,9 @@ package com.space;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Path2D;
+
 
 class SpaceObject extends JPanel {
 
@@ -96,6 +98,14 @@ class SpaceObject extends JPanel {
         move();
     }
 
+    public void limitVelocity(double limit) {
+        double currentSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        if (currentSpeed > limit) {
+            velocityX *= limit / currentSpeed;
+            velocityY *= limit / currentSpeed;
+        }
+    }
+
     // rotate by a certain amount
     public void rotateBy(double angle) {
         setOrientation(orientation + angle);
@@ -116,9 +126,11 @@ class SpaceObject extends JPanel {
         shape.transform(transform);
     }
 
-
     public boolean intersectsWith(SpaceObject other) {
-        return this.shape.getBounds().intersects(other.shape.getBounds());
+        Area thisArea = new Area(this.shape);
+        Area otherArea = new Area(other.shape);
+        thisArea.intersect(otherArea);
+        return !thisArea.isEmpty();
     }
 
     public void destroy() {

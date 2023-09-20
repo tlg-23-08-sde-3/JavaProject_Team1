@@ -2,8 +2,8 @@ package com.space;
 
 enum AsteroidSize {
     SMALL(10.0, 30.0),
-    MEDIUM(30.0, 50.0),
-    LARGE(50.0, 70.0);
+    MEDIUM(20.0, 40.0),
+    LARGE(30.0, 50.0);
 
     private final double lowerLimit;
     private final double upperLimit;

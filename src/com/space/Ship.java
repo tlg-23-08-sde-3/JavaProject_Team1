@@ -20,7 +20,7 @@ class Ship extends SpaceObject {
     private final double decelerationRate = 0.01;
     private final double rotationSpeed = 5.0;
     private double angle = 0;
-    private List<Bullet> bullets = new ArrayList<>();
+    public List<Bullet> bullets = new ArrayList<>();
 
     public Ship() {
         super();
@@ -133,12 +133,12 @@ class Ship extends SpaceObject {
      */
     private void updateBullets() {
         bullets.forEach(Bullet::move);
-        for (int i = 0; i < bullets.size(); i++) {
-            if (!bullets.get(i).isActive) {
-                bullets.get(i).audio.closeAudioSystem();
-                bullets.remove(i);
-            }
-        }
+//        for (int i = 0; i < bullets.size(); i++) {
+//            if (!bullets.get(i).isActive) {
+//                bullets.get(i).audio.closeAudioSystem();
+//                bullets.remove(i);
+//            }
+//        }
         Bullet.bulletDelayCounter++;
         if (Bullet.bulletDelayCounter > Bullet.BULLET_DELAY) {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
@@ -179,7 +179,7 @@ class Ship extends SpaceObject {
             Bullet bullet = new Bullet(centroidX, centroidY, orientation);
             bullets.add(bullet);
             Bullet.bulletDelayCounter = 0;
-            System.out.println(bullets.size());
+            //System.out.println("Bullets: " + bullets.size());
         }
     }
 
