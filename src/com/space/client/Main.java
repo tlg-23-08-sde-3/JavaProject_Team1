@@ -1,7 +1,7 @@
 package com.space.client;
 
-import com.space.GameFrame;
-import com.space.title.TitleFrame;
+import com.space.frames.EndGameFrame;
+import com.space.frames.TitleFrame;
 
 class Main {
     public static void main(String[] args) {

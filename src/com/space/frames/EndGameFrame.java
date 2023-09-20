@@ -1,18 +1,23 @@
-package com.space.title;
+package com.space.frames;
 
 import com.space.GameFrame;
+import com.space.ui.FontLoader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-/**
- * Title Screen for application
- * Launches game and hides this window on "Start Game" button
- */
-public class TitleFrame extends JFrame {
+public class EndGameFrame extends JFrame {
+
     JFrame frame = new JFrame("Asteroids");
+    String fontString = "assets/fonts/AtariFont.ttf";
+    float fontSize = 30f;
+    Font font = FontLoader.loadFont(fontString, fontSize);
 
-    public TitleFrame() {
+    public EndGameFrame() {
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setResizable(false);
@@ -27,14 +32,22 @@ public class TitleFrame extends JFrame {
         button.addActionListener(e -> loadGame());
         button.setLayout(null);
         button.setBounds(520, 400, 200, 50);
-        panel.add(button);
+        //panel.add(button);
 
-        JLabel titleImage = new JLabel(new ImageIcon("assets/images/TitleScreen.png"));
+        JLabel scoreLabel = new JLabel("0");
+        scoreLabel.setFont(font);
+        scoreLabel.setBounds(380,233,200,200);
+        scoreLabel.setForeground(Color.WHITE);
+        panel.add(scoreLabel);
+
+        JLabel titleImage = new JLabel(new ImageIcon("assets/images/EndScreen.png"));
         panel.add(titleImage);
         titleImage.setBounds(0, 0, 1280, 720);
 
         JLabel titleLabel = new JLabel("Welcome to Asteroids");
         panel.add(titleLabel);
+
+
 
         frame.setVisible(true);
     }
@@ -44,4 +57,5 @@ public class TitleFrame extends JFrame {
         GameFrame game = new GameFrame();
         game.startGame();
     }
+
 }
