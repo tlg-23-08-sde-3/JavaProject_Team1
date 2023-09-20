@@ -117,15 +117,6 @@ class Asteroid extends SpaceObject {
         return splitAsteroids;
     }
 
-    @Override
-    public void checkBounds() {
-        double buffer = 0.0;
-        if (locationX < MIN_LOCATION_X - buffer || locationX > MAX_LOCATION_X + buffer ||
-                locationY < MIN_LOCATION_Y - buffer || locationY > MAX_LOCATION_Y + buffer) {
-            isActive = false;
-        }
-    }
-
     public boolean isLarge() {
         return this.size == AsteroidSize.LARGE;
     }
