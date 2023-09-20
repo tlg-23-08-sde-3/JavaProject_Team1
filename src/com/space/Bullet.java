@@ -11,7 +11,7 @@ class Bullet extends SpaceObject {
     public static final int BULLET_DELAY = 15;
     public static int bulletDelayCounter = BULLET_DELAY;
 
-    private final double bulletSpeed = 5;
+    private final double bulletSpeed = 10;
 
     private final String bulletAudioString = "assets/audio/laserShoot.wav";
     public Audio audio;
