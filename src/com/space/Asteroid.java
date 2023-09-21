@@ -1,6 +1,5 @@
 package com.space;
 
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,12 @@ class Asteroid extends SpaceObject {
 
     public Asteroid() {
         super();
-        setRandomAsteroid();
+        setRandomSize();
+        setRandomOutsideLocation();
+        setVelocityTowardsCenter();
+        setRandomShape();
     }
+
 
     public Asteroid(AsteroidSize size, double locationX, double locationY, double velocityX, double velocityY) {
         super();
@@ -26,7 +29,7 @@ class Asteroid extends SpaceObject {
 
     public void setRandomAsteroid() {
         setRandomSize();
-        setRandomLocation();
+        setRandomInsideLocation();
         setRandomShape();
         setRandomVelocity();
     }
@@ -60,7 +63,7 @@ class Asteroid extends SpaceObject {
         }
     }
 
-    public void setRandomLocation() {
+    public void setRandomInsideLocation() {
         double offSetLocation = AsteroidSize.LARGE.getUpperLimit();
         double minLocationX = MIN_LOCATION_X + offSetLocation;
         double maxLocationX = MAX_LOCATION_X - offSetLocation;
@@ -123,4 +126,44 @@ class Asteroid extends SpaceObject {
         return this.size == AsteroidSize.MEDIUM;
     }
 
+    public void setRandomOutsideLocation() {
+        int frameSide = (int) (Math.random() * 4);
+        double buffer = AsteroidSize.LARGE.getUpperLimit();
+        double extendedBuffer = buffer * 2;
+
+        switch (frameSide) {
+            case 0: // top
+                locationX = Math.random() * MAX_LOCATION_X;
+                locationY = MIN_LOCATION_Y - buffer - (Math.random() * (extendedBuffer - buffer));
+                break;
+            case 1: // bottom
+                locationX = Math.random() * MAX_LOCATION_X;
+                locationY = MAX_LOCATION_Y + buffer + (Math.random() * (extendedBuffer - buffer));
+                break;
+            case 2: // left
+                locationX = MIN_LOCATION_X - buffer - (Math.random() * (extendedBuffer - buffer));
+                locationY = Math.random() * MAX_LOCATION_Y;
+                break;
+            case 3: // right
+                locationX = MAX_LOCATION_X + buffer + (Math.random() * (extendedBuffer - buffer));
+                locationY = Math.random() * MAX_LOCATION_Y;
+                break;
+        }
+    }
+
+    public void setVelocityTowardsCenter() {
+        double centerX = MAX_LOCATION_X / 2.0;
+        double centerY = MAX_LOCATION_Y / 2.0;
+        double offsetRange = 100;
+        double offsetX = (Math.random() * 2 * offsetRange) - offsetRange;
+        double offsetY = (Math.random() * 2 * offsetRange) - offsetRange;
+        double targetX = centerX + offsetX;
+        double targetY = centerY + offsetY;
+        double dx = targetX - locationX;
+        double dy = targetY - locationY;
+        double magnitude = Math.sqrt(dx * dx + dy * dy);
+        double speed = 0.5;
+        velocityX = (dx / magnitude) * speed;
+        velocityY = (dy / magnitude) * speed;
+    }
 }

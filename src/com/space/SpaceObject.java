@@ -134,7 +134,7 @@ class SpaceObject extends JPanel {
     }
 
     public void checkBounds() {
-        double buffer = AsteroidSize.LARGE.getUpperLimit() * 2;
+        double buffer = AsteroidSize.LARGE.getUpperLimit() * 3;
         if (locationX < MIN_LOCATION_X - buffer || locationX > MAX_LOCATION_X + buffer ||
                 locationY < MIN_LOCATION_Y - buffer || locationY > MAX_LOCATION_Y + buffer) {
             isActive = false;
