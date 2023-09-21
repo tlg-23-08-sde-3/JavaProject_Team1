@@ -7,8 +7,10 @@ import java.awt.Color;
 
 public class GameFrame {
 
-    // fields
+    // static fields
     private static JFrame frame;
+
+    // fields
     private final GamePanel panel;
 
     // constructors
