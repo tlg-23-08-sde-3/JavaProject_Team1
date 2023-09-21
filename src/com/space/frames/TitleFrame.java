@@ -1,6 +1,7 @@
 package com.space.frames;
 
 import com.space.GameFrame;
+import com.space.audio.Audio;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,10 +38,13 @@ public class TitleFrame extends JFrame {
         panel.add(titleLabel);
 
         frame.setVisible(true);
+
+        Audio.loopSound(2);
     }
 
     private void loadGame() {
         frame.setVisible(false);
+        Audio.stopSound(2);
         GameFrame game = new GameFrame();
         game.startGame();
     }

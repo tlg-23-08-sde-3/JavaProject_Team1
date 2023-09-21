@@ -1,5 +1,7 @@
 package com.space;
 
+import com.space.audio.Audio;
+
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;

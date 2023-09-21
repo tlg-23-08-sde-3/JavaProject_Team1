@@ -2,6 +2,7 @@ package com.space.frames;
 
 import com.space.GameFrame;
 import com.space.GamePanel;
+import com.space.audio.Audio;
 import com.space.ui.FontLoader;
 import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
@@ -78,8 +79,9 @@ public class EndGameFrame extends JFrame {
         JLabel titleLabel = new JLabel("Welcome to Asteroids");
         panel.add(titleLabel);
 
-
         frame.setVisible(true);
+
+        Audio.playSound(4);
     }
 
     private void saveHighScore(int score, int highScore) {
@@ -94,7 +96,7 @@ public class EndGameFrame extends JFrame {
     }
 
     private void loadGame() {
-
+        Audio.stopSound(4);
         ResetGame.reset();
         frame.dispose();
     }
