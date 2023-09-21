@@ -16,19 +16,21 @@ import java.util.stream.Stream;
 
 class PlayManager {
 
-    private int asteroidSpawnCounter = 0;
+    // static fields
     private static final int ASTEROID_SPAWN_INTERVAL = 60;
-    private static final int MAX_ASTEROIDS = 10;
-    private double difficultyScalingFactor = 1.0;
+    private static final int MAX_ASTEROIDS = 50;
     private static final double DIFFICULTY_INCREMENT = 0.05;
 
-
-    private Ship ship = new Ship();
-    private List<Asteroid> asteroids = Stream.generate(Asteroid::new)
+    // fields
+    private double difficultyScalingFactor = 1.0;
+    private int asteroidSpawnCounter = 0;
+    private final Ship ship = new Ship();
+    private final List<Asteroid> asteroids = Stream.generate(Asteroid::new)
             .limit(10)
             .collect(Collectors.toList());
-    private List<Asteroid> asteroidsQueue = new ArrayList<>();
+    private final List<Asteroid> asteroidsQueue = new ArrayList<>();
 
+    // action methods
     public void update() {
         synchronized (this) {
             ship.update();
@@ -58,7 +60,6 @@ class PlayManager {
         difficultyScalingFactor += DIFFICULTY_INCREMENT;
     }
 
-
     private void asteroidSpawn() {
         int numberOfAsteroidsToSpawn = (int) (1 * difficultyScalingFactor);
         int totalAsteroidsAfterSpawn = asteroids.size() + asteroidsQueue.size() + numberOfAsteroidsToSpawn;
@@ -70,7 +71,6 @@ class PlayManager {
             asteroidsQueue.add(asteroid);
         }
     }
-
 
     public void draw(Graphics2D g) {
         synchronized (this) {
@@ -92,7 +92,7 @@ class PlayManager {
         }
     }
 
-    public void checkShipAsteroidCollisions() {
+    private void checkShipAsteroidCollisions() {
         if (!ship.isInvulnerable()) {
             Iterator<Asteroid> asteroidIterator = asteroids.iterator();
             while (asteroidIterator.hasNext()) {
@@ -107,7 +107,7 @@ class PlayManager {
         }
     }
 
-    public void checkAsteroidCollisions() {
+    private void checkAsteroidCollisions() {
         Iterator<Asteroid> asteroidIterator1 = asteroids.iterator();
         while (asteroidIterator1.hasNext()) {
             Asteroid asteroid1 = asteroidIterator1.next();
@@ -121,8 +121,7 @@ class PlayManager {
         }
     }
 
-
-    public void checkBulletAsteroidCollisions() {
+    private void checkBulletAsteroidCollisions() {
         Iterator<Bullet> bulletIterator = ship.getBullets().iterator();
         while (bulletIterator.hasNext()) {
             Bullet bullet = bulletIterator.next();
@@ -139,16 +138,10 @@ class PlayManager {
         }
     }
 
-    public void cleanupObjects() {
-        //int initialBulletCount = ship.bullets.size();
+    private void cleanupObjects() {
         ship.getBullets().removeIf(bullet -> !bullet.isActive());
-        //int finalBulletCount = ship.bullets.size();
-        //System.out.println("Bullets before cleanup: " + initialBulletCount + ", after cleanup: " + finalBulletCount);
-        int initialAsteroidCount = asteroids.size();
         asteroids.removeIf(asteroid -> !asteroid.isActive());
         asteroids.addAll(asteroidsQueue);
         asteroidsQueue.clear();
-        int finalAsteroidCount = asteroids.size();
-        System.out.println("Asteroids before cleanup: " + initialAsteroidCount + ", after cleanup: " + finalAsteroidCount);
     }
 }

@@ -1,6 +1,5 @@
 package com.space.client;
 
-import com.space.frames.EndGameFrame;
 import com.space.frames.TitleFrame;
 
 class Main {

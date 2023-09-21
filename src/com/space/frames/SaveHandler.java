@@ -7,12 +7,15 @@ import java.io.ObjectOutputStream;
 
 class SaveHandler {
 
+    // static fields
     private static final String dataFilePath = "data/highscore.dat";
 
+    // constructors
     private SaveHandler() {
         // no-op, full static method
     }
 
+    // action methods
     public static int load() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SaveHandler.dataFilePath))) {
             return in.readInt();
@@ -29,5 +32,4 @@ class SaveHandler {
             e.printStackTrace();
         }
     }
-
 }

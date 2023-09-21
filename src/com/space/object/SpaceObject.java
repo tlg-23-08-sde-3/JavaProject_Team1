@@ -121,7 +121,7 @@ class SpaceObject extends JPanel {
         rotateShape(difference);
     }
 
-    public void rotateShape(double angle) {
+    private void rotateShape(double angle) {
         double[] centroid = getCentroid();
         AffineTransform transform = new AffineTransform();
         transform.rotate(Math.toRadians(angle), centroid[0], centroid[1]);
@@ -163,20 +163,28 @@ class SpaceObject extends JPanel {
         graphics.draw(shape);
     }
 
-    // additional useful methods...
     public double[] getCentroid() {
         double centroidX = shape.getBounds().getCenterX();
         double centroidY = shape.getBounds().getCenterY();
         return new double[]{centroidX, centroidY};
     }
 
-    // getters and setters...
+    // getters and setters
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public double getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(double orientation) {
+        this.orientation = orientation % 360;
+        if (this.orientation < 0) this.orientation += 360;
     }
 
     public double getLocationX() {
@@ -209,15 +217,6 @@ class SpaceObject extends JPanel {
 
     public void setVelocityY(int velocityY) {
         this.velocityY = velocityY;
-    }
-
-    public double getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(double orientation) {
-        this.orientation = orientation % 360;
-        if (this.orientation < 0) this.orientation += 360;
     }
 
     public Shape getShape() {

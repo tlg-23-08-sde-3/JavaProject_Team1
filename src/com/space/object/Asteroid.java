@@ -6,8 +6,15 @@ import java.util.List;
 
 public class Asteroid extends SpaceObject {
 
+    // static fields
+    private static final double MAX_VELOCITY_LARGE = 0.4;
+    private static final double MAX_VELOCITY_MEDIUM = 0.8;
+    private static final double MAX_VELOCITY_SMALL = 1.2;
+
+    // fields
     private AsteroidSize asteroidSize;
 
+    // constructors
     public Asteroid() {
         super();
         setRandomSize();
@@ -15,7 +22,6 @@ public class Asteroid extends SpaceObject {
         setVelocityTowardsCenter();
         setRandomShape();
     }
-
 
     public Asteroid(AsteroidSize asteroidSize, double locationX, double locationY, double velocityX, double velocityY) {
         super();
@@ -27,28 +33,36 @@ public class Asteroid extends SpaceObject {
         setRandomShape();
     }
 
-    public void setRandomAsteroid() {
-        setRandomSize();
-        setRandomInsideLocation();
-        setRandomShape();
-        setRandomVelocity();
-    }
-
-    public void setRandomVelocity() {
-        double velocityRange = 0.3;
-        switch (asteroidSize) {
-            case MEDIUM:
-                velocityRange = 0.6;
-                break;
-            case SMALL:
-                velocityRange = 0.9;
-                break;
-        }
+    // action methods
+    private void setRandomVelocityBySize() {
+        double velocityRange = asteroidVelocityBySize();
         velocityX = (Math.random() * 2 * velocityRange) - velocityRange;
         velocityY = (Math.random() * 2 * velocityRange) - velocityRange;
     }
 
-    public void setRandomSize() {
+    private double asteroidVelocityBySize() {
+        double velocityRange = MAX_VELOCITY_LARGE;
+        switch (asteroidSize) {
+            case MEDIUM:
+                velocityRange = MAX_VELOCITY_MEDIUM;
+                break;
+            case SMALL:
+                velocityRange = MAX_VELOCITY_SMALL;
+                break;
+        }
+        return velocityRange;
+    }
+
+    private void limitAsteroidVelocityBySize() {
+        double limit = asteroidVelocityBySize();
+        double currentSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        if (currentSpeed > limit) {
+            velocityX *= limit / currentSpeed;
+            velocityY *= limit / currentSpeed;
+        }
+    }
+
+    private void setRandomSize() {
         int randomSize = (int) (Math.random() * 3);
         switch (randomSize) {
             case 0:
@@ -63,7 +77,7 @@ public class Asteroid extends SpaceObject {
         }
     }
 
-    public void setRandomInsideLocation() {
+    private void setRandomInsideLocation() {
         double offSetLocation = AsteroidSize.LARGE.getUpperLimit();
         double minLocationX = MIN_LOCATION_X + offSetLocation;
         double maxLocationX = MAX_LOCATION_X - offSetLocation;
@@ -73,7 +87,7 @@ public class Asteroid extends SpaceObject {
         locationY = minLocationY + (Math.random() * (maxLocationY - minLocationY));
     }
 
-    public void setRandomShape() {
+    private void setRandomShape() {
         shape = new Path2D.Double();
         boolean firstPoint = true;
         for (int i = 0; i < 10; i++) {
@@ -93,7 +107,7 @@ public class Asteroid extends SpaceObject {
 
     public void update() {
         move();
-        limitVelocity(1);
+        limitAsteroidVelocityBySize();
         checkBounds();
     }
 
@@ -118,19 +132,10 @@ public class Asteroid extends SpaceObject {
         return splitAsteroids;
     }
 
-    public boolean isLarge() {
-        return this.asteroidSize == AsteroidSize.LARGE;
-    }
-
-    public boolean isMedium() {
-        return this.asteroidSize == AsteroidSize.MEDIUM;
-    }
-
-    public void setRandomOutsideLocation() {
+    private void setRandomOutsideLocation() {
         int frameSide = (int) (Math.random() * 4);
         double buffer = AsteroidSize.LARGE.getUpperLimit();
         double extendedBuffer = buffer * 2;
-
         switch (frameSide) {
             case 0: // top
                 locationX = Math.random() * MAX_LOCATION_X;
@@ -151,7 +156,7 @@ public class Asteroid extends SpaceObject {
         }
     }
 
-    public void setVelocityTowardsCenter() {
+    private void setVelocityTowardsCenter() {
         double centerX = MAX_LOCATION_X / 2.0;
         double centerY = MAX_LOCATION_Y / 2.0;
         double offsetRange = 100;
@@ -162,11 +167,21 @@ public class Asteroid extends SpaceObject {
         double dx = targetX - locationX;
         double dy = targetY - locationY;
         double magnitude = Math.sqrt(dx * dx + dy * dy);
-        double speed = 0.5;
-        velocityX = (dx / magnitude) * speed;
-        velocityY = (dy / magnitude) * speed;
+        double directionX = dx / magnitude;
+        double directionY = dy / magnitude;
+        setRandomVelocityBySize();
+        velocityX = directionX * Math.abs(velocityX);
+        velocityY = directionY * Math.abs(velocityY);
     }
 
+    public void setRandomAsteroid() {
+        setRandomSize();
+        setRandomInsideLocation();
+        setRandomShape();
+        setRandomVelocityBySize();
+    }
+
+    // getters and setters
     public AsteroidSize getAsteroidSize() {
         return asteroidSize;
     }

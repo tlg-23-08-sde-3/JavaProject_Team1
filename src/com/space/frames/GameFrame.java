@@ -7,9 +7,11 @@ import java.awt.*;
 
 public class GameFrame {
 
+    // fields
     private static JFrame frame;
-    private GamePanel panel;
+    private final GamePanel panel;
 
+    // constructors
     public GameFrame() {
         frame = new JFrame();
         panel = new GamePanel();
@@ -22,6 +24,7 @@ public class GameFrame {
         frame.pack();
     }
 
+    // action methods
     public void startGame() {
         panel.startGame();
     }
@@ -29,6 +32,4 @@ public class GameFrame {
     public static void disposeGame() {
         frame.dispose();
     }
-
-
 }

@@ -8,14 +8,15 @@ import java.awt.*;
 
 public class EndGameFrame extends JFrame {
 
-    private JFrame frame = new JFrame("Asteroids");
-    private String fontString = "assets/fonts/AtariFont.ttf";
-    private float fontSize = 30f;
-    private Font font = FontLoader.loadFont(fontString, fontSize);
+    // fields
+    private final JFrame frame = new JFrame("Asteroids");
+    private final String fontString = "assets/fonts/AtariFont.ttf";
+    private final float fontSize = 30f;
+    private final Font font = FontLoader.loadFont(fontString, fontSize);
     private boolean isHighScore = false;
 
+    // constructors
     public EndGameFrame(int score) {
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setResizable(false);
@@ -77,6 +78,7 @@ public class EndGameFrame extends JFrame {
         Audio.playSound(4);
     }
 
+    // action methods
     private void saveHighScore(int score, int highScore) {
         if (score > highScore) {
             SaveHandler.save(score);
@@ -97,5 +99,4 @@ public class EndGameFrame extends JFrame {
     private void closeGame() {
         System.exit(0);
     }
-
 }

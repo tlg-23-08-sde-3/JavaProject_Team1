@@ -6,14 +6,14 @@ import java.awt.geom.Path2D;
 
 public class Bullet extends SpaceObject {
 
-    public static final int BULLET_DELAY = 10;
+    // static fields
+    public static final int BULLET_DELAY = 20;
     public static int bulletDelayCounter = BULLET_DELAY;
 
+    // fields
     private final double bulletSpeed = 20;
 
-    private final String bulletAudioString = "assets/audio/laserShoot.wav";
-    public Audio audio;
-
+    // constructors
     public Bullet(double locationX, double locationY, double orientation) {
         super(locationX, locationY, 0, 0, new Path2D.Double());
         this.orientation = orientation;
@@ -23,6 +23,7 @@ public class Bullet extends SpaceObject {
         Audio.playSound(0);
     }
 
+    // action methods
     private void createBulletShape() {
         Path2D.Double bulletShape = new Path2D.Double();
         double size = 1;

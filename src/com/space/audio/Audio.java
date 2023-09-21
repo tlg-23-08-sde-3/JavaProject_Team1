@@ -2,9 +2,10 @@ package com.space.audio;
 
 import javax.sound.sampled.*;
 import java.io.File;
-import java.io.IOException;
 
 public class Audio {
+
+    // static fields
     private static String[] assets = {
             "assets/audio/laserShoot.wav",
             "assets/audio/explosion.wav",
@@ -15,11 +16,12 @@ public class Audio {
     private static AudioInputStream[] ais = null;
     private static Clip[] clip;
 
-
+    // constructors
     private Audio() {
         // no-op
     }
 
+    // action methods
     public static void playSound(int index) {
         stopSound(index);
         clip[index].start();
@@ -42,7 +44,6 @@ public class Audio {
         file = new File[assets.length];
         clip = new Clip[assets.length];
         ais = new AudioInputStream[assets.length];
-
         for (int i = 0; i < assets.length; i++) {
             try {
                 file[i] = new File(assets[i]);
@@ -53,9 +54,7 @@ public class Audio {
                 System.out.println(e.getLocalizedMessage());
             }
         }
-
     }
-
 
 //    public Audio(String fileString) {
 //        this.file = new File(fileString);
@@ -87,5 +86,4 @@ public class Audio {
 //            System.out.println("Issue with loading and opening the file!\n" + e.getLocalizedMessage());
 //        }
 //    }
-
 }

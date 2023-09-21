@@ -11,16 +11,18 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    public static boolean isRunning = true;
+    // static fields
     public static final int GAME_WIDTH = 1280;
     public static final int GAME_HEIGHT = 720;
     private static final Dimension SCREEN_RESOLUTION = new Dimension(GAME_WIDTH, GAME_HEIGHT);
+    public static boolean isRunning = true;
+
+    // fields
     private final int FPS = 60;
+    private PlayManager playManager = new PlayManager();
+    private Thread gameThread;
 
-    PlayManager playManager = new PlayManager();
-    Thread gameThread;
-
-
+    // constructors
     public GamePanel() {
         this.setFocusable(true);
         this.setPreferredSize(SCREEN_RESOLUTION);
@@ -46,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         while (gameThread != null) {
             currentTime = System.nanoTime();
-
             delta += (currentTime - lastTime) / drawInterval;
             lastTime = currentTime;
 
@@ -56,7 +57,6 @@ public class GamePanel extends JPanel implements Runnable {
                 repaint();
                 delta--;
             }
-
             if (!isRunning) {
                 endGame();
             }
@@ -79,7 +79,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2d = (Graphics2D) g;
         playManager.draw(g2d);
     }

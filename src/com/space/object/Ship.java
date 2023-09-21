@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Ship extends SpaceObject {
 
+    // fields
     private boolean isInvulnerable = false;
     private int invulnerableTime = 0;
     private final int INVULNERABLE_DURATION = 180; // 3 seconds
@@ -26,10 +27,13 @@ public class Ship extends SpaceObject {
     private double angle = 0;
     private List<Bullet> bullets = new ArrayList<>();
 
+    // constructors
     public Ship() {
         super();
         defaultShip();
     }
+
+    // action methods
 
     /**
      * Handler to generate a default ship at a default location
@@ -78,14 +82,12 @@ public class Ship extends SpaceObject {
             }
             KeyHandler.leftReleased = false;
         }
-
         if (KeyHandler.rightReleased) {
             if (!KeyHandler.leftPressed) {
                 angle = 0;
             }
             KeyHandler.rightReleased = false;
         }
-
         if (KeyHandler.shootPressed) {
             shoot();
         }
@@ -163,19 +165,6 @@ public class Ship extends SpaceObject {
         }
     }
 
-
-    @Override
-    public String toString() {
-        return String.format("---------------------------\n" +
-                        "Bounds:   (x)%s (y)%s \n" +
-                        "Velocity: (x)%s (y)%s (sqrM)%s \n" +
-                        "Location: (x)%s (y)%s \n" +
-                        "Angle:    (d)%s \n" +
-                        "-----------------------------\n\n",
-                shape.getBounds().x, shape.getBounds().y, velocityX,
-                velocityY, getSqrMagnitude(), locationX, locationY, orientation);
-    }
-
     /**
      * Get positive magnitude (add squared values of velocities then square root)
      *
@@ -212,16 +201,9 @@ public class Ship extends SpaceObject {
         }
         g.draw(shape);
         g.setColor(Color.WHITE);
-
     }
 
-    /**
-     * Draw each bullet and pass along to their own draw function for handling movement
-     */
-    public void drawBullets(Graphics2D graphics) {
-        bullets.forEach(bullet -> bullet.draw(graphics));
-    }
-
+    // getters and setters
     public boolean isInvulnerable() {
         return isInvulnerable;
     }
@@ -236,5 +218,18 @@ public class Ship extends SpaceObject {
 
     public void setBullets(List<Bullet> bullets) {
         this.bullets = bullets;
+    }
+
+    // toString()
+    @Override
+    public String toString() {
+        return String.format("---------------------------\n" +
+                        "Bounds:   (x)%s (y)%s \n" +
+                        "Velocity: (x)%s (y)%s (sqrM)%s \n" +
+                        "Location: (x)%s (y)%s \n" +
+                        "Angle:    (d)%s \n" +
+                        "-----------------------------\n\n",
+                shape.getBounds().x, shape.getBounds().y, velocityX,
+                velocityY, getSqrMagnitude(), locationX, locationY, orientation);
     }
 }

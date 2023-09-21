@@ -5,6 +5,7 @@ import java.io.File;
 
 public class FontLoader {
 
+    // constructors
     private FontLoader() {
         // no-op, static class
     }
@@ -20,6 +21,5 @@ public class FontLoader {
             font = new Font("Arial", Font.PLAIN, 22);
         }
         return font;
-
     }
 }

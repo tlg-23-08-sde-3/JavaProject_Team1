@@ -6,15 +6,18 @@ import java.awt.*;
 
 public class ScoreUI {
 
+    // static fields
     public static int score = 0;
     public static String displayText = "Score";
     private static final Rectangle rect = new Rectangle(GamePanel.GAME_WIDTH - 180, 0, 180, 100);
     private static final Font font = FontLoader.loadFont("assets/fonts/AtariFont.ttf", 22f);
 
+    // constructors
     private ScoreUI() {
         // no-op
     }
 
+    // action methods
     public static void addScore(int scoreGiven) {
         score += scoreGiven;
     }
@@ -27,5 +30,4 @@ public class ScoreUI {
         g.drawString(displayText, rect.x + (rect.width / 6), rect.y + 50);
         g.drawString(Integer.toString(score), rect.x + (rect.width / 6), rect.y + 90);
     }
-
 }
