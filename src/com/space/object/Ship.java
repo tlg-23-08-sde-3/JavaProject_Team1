@@ -3,7 +3,8 @@ package com.space.object;
 import com.space.logic.GamePanel;
 import com.space.logic.KeyHandler;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -62,10 +63,10 @@ public class Ship extends SpaceObject {
      */
     private void handleMovement() {
         if (KeyHandler.upPressed) {
-            accelerate(accelerationRate, MAX_SPEED, MIN_SPEED);
+            accelerate(accelerationRate, MAX_SPEED);
         }
         if (KeyHandler.upReleased) {
-            decelerate(decelerationRate, MAX_SPEED, MIN_SPEED);
+            decelerate(decelerationRate, MIN_SPEED);
         }
         // rotate counterclockwise
         if (KeyHandler.leftPressed) {
@@ -120,7 +121,7 @@ public class Ship extends SpaceObject {
      */
     private void limitSpeed() {
         if (getSqrMagnitude() > MAX_SPEED) {
-            decelerate(decelerationRate, MAX_SPEED, MIN_SPEED);
+            decelerate(decelerationRate, MIN_SPEED);
         }
     }
 
@@ -208,16 +209,8 @@ public class Ship extends SpaceObject {
         return isInvulnerable;
     }
 
-    public void setInvulnerable(boolean invulnerable) {
-        isInvulnerable = invulnerable;
-    }
-
     public List<Bullet> getBullets() {
         return bullets;
-    }
-
-    public void setBullets(List<Bullet> bullets) {
-        this.bullets = bullets;
     }
 
     // toString()

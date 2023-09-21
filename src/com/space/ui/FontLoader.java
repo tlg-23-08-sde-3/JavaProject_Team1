@@ -1,6 +1,6 @@
 package com.space.ui;
 
-import java.awt.*;
+import java.awt.Font;
 import java.io.File;
 
 public class FontLoader {
@@ -10,6 +10,7 @@ public class FontLoader {
         // no-op, static class
     }
 
+    // action methods
     public static Font loadFont(String fontString, float fontSize) {
         Font font;
         try {

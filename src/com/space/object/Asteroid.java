@@ -77,16 +77,6 @@ public class Asteroid extends SpaceObject {
         }
     }
 
-    private void setRandomInsideLocation() {
-        double offSetLocation = AsteroidSize.LARGE.getUpperLimit();
-        double minLocationX = MIN_LOCATION_X + offSetLocation;
-        double maxLocationX = MAX_LOCATION_X - offSetLocation;
-        double minLocationY = MIN_LOCATION_Y + offSetLocation;
-        double maxLocationY = MAX_LOCATION_Y - offSetLocation;
-        locationX = minLocationX + (Math.random() * (maxLocationX - minLocationX));
-        locationY = minLocationY + (Math.random() * (maxLocationY - minLocationY));
-    }
-
     private void setRandomShape() {
         shape = new Path2D.Double();
         boolean firstPoint = true;
@@ -174,19 +164,8 @@ public class Asteroid extends SpaceObject {
         velocityY = directionY * Math.abs(velocityY);
     }
 
-    public void setRandomAsteroid() {
-        setRandomSize();
-        setRandomInsideLocation();
-        setRandomShape();
-        setRandomVelocityBySize();
-    }
-
     // getters and setters
     public AsteroidSize getAsteroidSize() {
         return asteroidSize;
-    }
-
-    public void setAsteroidSize(AsteroidSize asteroidSize) {
-        this.asteroidSize = asteroidSize;
     }
 }

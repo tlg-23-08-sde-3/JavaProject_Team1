@@ -6,8 +6,11 @@ import com.space.frames.GameFrame;
 import com.space.frames.ResetGame;
 import com.space.ui.ScoreUI;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class GamePanel extends JPanel implements Runnable {
 

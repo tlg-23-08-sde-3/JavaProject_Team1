@@ -2,8 +2,8 @@ package com.space.object;
 
 import com.space.logic.GamePanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
@@ -56,13 +56,7 @@ class SpaceObject extends JPanel {
         shape.transform(transform);
     }
 
-    public void accelerate(double delta) {
-        velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
-        velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
-        move();
-    }
-
-    public void accelerate(double delta, double MAX, double MIN) {
+    public void accelerate(double delta, double MAX) {
         // Change velocity based on angle
         velocityX += (Math.sin(Math.toRadians(orientation)) * delta);
         velocityY -= (Math.cos(Math.toRadians(orientation)) * delta);
@@ -84,13 +78,7 @@ class SpaceObject extends JPanel {
         move();
     }
 
-    public void decelerate(double delta) {
-        velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
-        velocityY += (Math.cos(Math.toRadians(orientation)) * delta);
-        move();
-    }
-
-    public void decelerate(double delta, double MAX, double MIN) {
+    public void decelerate(double delta, double MIN) {
         if (velocityX > MIN && velocityX * (-1) > MIN * (-1)) {
             velocityX -= (Math.sin(Math.toRadians(orientation)) * delta);
         }
@@ -100,25 +88,10 @@ class SpaceObject extends JPanel {
         move();
     }
 
-    public void limitVelocity(double limit) {
-        double currentSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-        if (currentSpeed > limit) {
-            velocityX *= limit / currentSpeed;
-            velocityY *= limit / currentSpeed;
-        }
-    }
-
     // rotate by a certain amount
     public void rotateBy(double angle) {
         setOrientation(orientation + angle);
         rotateShape(angle);
-    }
-
-    // rotate to a specific value
-    public void rotateTo(double angle) {
-        double difference = angle - orientation;
-        setOrientation(angle);
-        rotateShape(difference);
     }
 
     private void rotateShape(double angle) {
@@ -158,7 +131,6 @@ class SpaceObject extends JPanel {
         other.velocityY += ny * bounceFactor;
     }
 
-
     public void draw(Graphics2D graphics) {
         graphics.draw(shape);
     }
@@ -178,53 +150,8 @@ class SpaceObject extends JPanel {
         isActive = active;
     }
 
-    public double getOrientation() {
-        return orientation;
-    }
-
     public void setOrientation(double orientation) {
         this.orientation = orientation % 360;
         if (this.orientation < 0) this.orientation += 360;
     }
-
-    public double getLocationX() {
-        return locationX;
-    }
-
-    public void setLocationX(int locationX) {
-        this.locationX = locationX;
-    }
-
-    public double getLocationY() {
-        return locationY;
-    }
-
-    public void setLocationY(int locationY) {
-        this.locationY = locationY;
-    }
-
-    public double getVelocityX() {
-        return velocityX;
-    }
-
-    public void setVelocityX(int velocityX) {
-        this.velocityX = velocityX;
-    }
-
-    public double getVelocityY() {
-        return velocityY;
-    }
-
-    public void setVelocityY(int velocityY) {
-        this.velocityY = velocityY;
-    }
-
-    public Shape getShape() {
-        return shape;
-    }
-
-    public void setShape(Path2D shape) {
-        this.shape = shape;
-    }
-
 }

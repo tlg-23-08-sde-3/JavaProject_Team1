@@ -2,8 +2,12 @@ package com.space.frames;
 
 import com.space.audio.Audio;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Color;
 
 /**
  * Title Screen for application
@@ -12,7 +16,7 @@ import java.awt.*;
 public class TitleFrame extends JFrame {
 
     // fields
-    private JFrame frame = new JFrame("Asteroids");
+    private final JFrame frame = new JFrame("Asteroids");
 
     // constructors
     public TitleFrame() {

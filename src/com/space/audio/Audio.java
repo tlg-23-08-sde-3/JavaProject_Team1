@@ -1,20 +1,22 @@
 package com.space.audio;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class Audio {
 
     // static fields
-    private static String[] assets = {
+    private static final String[] assets = {
             "assets/audio/laserShoot.wav",
             "assets/audio/explosion.wav",
             "assets/audio/mainmenuloop.wav",
             "assets/audio/mainloopsong.wav",
             "assets/audio/EndSong.wav"};
-    private static File[] file;
+    private static final File[] file;
     private static AudioInputStream[] ais = null;
-    private static Clip[] clip;
+    private static final Clip[] clip;
 
     // constructors
     private Audio() {
@@ -36,10 +38,6 @@ public class Audio {
         clip[index].loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public static void touch() {
-        // simply loading static class
-    }
-
     static {
         file = new File[assets.length];
         clip = new Clip[assets.length];
@@ -55,35 +53,4 @@ public class Audio {
             }
         }
     }
-
-//    public Audio(String fileString) {
-//        this.file = new File(fileString);
-//        loadAudioSystem();
-//    }
-//
-//    public synchronized void playSound() {
-//        if (clip != null) {
-//            clip.start();
-//        }
-//    }
-//
-//    public void closeAudioSystem() {
-//        try {
-//            clip.close();
-//            ais.close();
-//        } catch (IOException e) {
-//            System.out.println(e.getLocalizedMessage());
-//        }
-//
-//    }
-//
-//    private void loadAudioSystem() {
-//        try {
-//            ais = AudioSystem.getAudioInputStream(file);
-//            clip = AudioSystem.getClip();
-//            clip.open(ais);
-//        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-//            System.out.println("Issue with loading and opening the file!\n" + e.getLocalizedMessage());
-//        }
-//    }
 }

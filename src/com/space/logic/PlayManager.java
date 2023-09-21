@@ -7,7 +7,9 @@ import com.space.object.Ship;
 import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +20,7 @@ class PlayManager {
 
     // static fields
     private static final int ASTEROID_SPAWN_INTERVAL = 60;
-    private static final int MAX_ASTEROIDS = 50;
+    private static final int MAX_ASTEROIDS = 40;
     private static final double DIFFICULTY_INCREMENT = 0.05;
 
     // fields
