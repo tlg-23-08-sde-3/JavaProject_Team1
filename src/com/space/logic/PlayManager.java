@@ -16,8 +16,12 @@ import java.util.stream.Stream;
 
 class PlayManager {
 
-    private int asteroidStreamCounter = 0;
-    private static final int ASTEROID_STREAM_INTERVAL = 30;
+    private int asteroidSpawnCounter = 0;
+    private static final int ASTEROID_SPAWN_INTERVAL = 60;
+    private static final int MAX_ASTEROIDS = 10;
+    private double difficultyScalingFactor = 1.0;
+    private static final double DIFFICULTY_INCREMENT = 0.05; // Adjust this value as needed
+
 
     Ship ship = new Ship();
     List<Asteroid> asteroids = Stream.generate(Asteroid::new)
@@ -26,54 +30,66 @@ class PlayManager {
     List<Asteroid> asteroidsQueue = new ArrayList<>();
 
     public void update() {
-        synchronized (this) {
-            ship.update();
-            Iterator<Asteroid> asteroidIterator = asteroids.iterator();
-            while (asteroidIterator.hasNext()) {
-                Asteroid asteroid = asteroidIterator.next();
-                asteroid.update();
-            }
-            checkAsteroidCollisions();
-            checkBulletAsteroidCollisions();
-            checkShipAsteroidCollisions();
-            cleanupObjects();
-            asteroidStreamCounter();
+        //synchronized (this) {
+        ship.update();
+        Iterator<Asteroid> asteroidIterator = asteroids.iterator();
+        while (asteroidIterator.hasNext()) {
+            Asteroid asteroid = asteroidIterator.next();
+            asteroid.update();
+        }
+        checkAsteroidCollisions();
+        checkBulletAsteroidCollisions();
+        checkShipAsteroidCollisions();
+        cleanupObjects();
+        asteroidSpawnCounter();
+        //}
+    }
+
+    private void asteroidSpawnCounter() {
+        asteroidSpawnCounter++;
+        if (asteroidSpawnCounter >= ASTEROID_SPAWN_INTERVAL) {
+            asteroidSpawn();
+            asteroidSpawnCounter = 0;
+            increaseDifficulty();
         }
     }
 
-    private void asteroidStreamCounter() {
-        asteroidStreamCounter++;
-        if (asteroidStreamCounter >= ASTEROID_STREAM_INTERVAL) {
-            asteroidStream();
-            asteroidStreamCounter = 0;
-        }
+    private void increaseDifficulty() {
+        difficultyScalingFactor += DIFFICULTY_INCREMENT;
     }
 
-    private void asteroidStream() {
-        Asteroid asteroid = new Asteroid();
-        synchronized (this) {
+
+    private void asteroidSpawn() {
+        int numberOfAsteroidsToSpawn = (int) (1 * difficultyScalingFactor);
+        int totalAsteroidsAfterSpawn = asteroids.size() + asteroidsQueue.size() + numberOfAsteroidsToSpawn;
+        if (totalAsteroidsAfterSpawn > MAX_ASTEROIDS) {
+            numberOfAsteroidsToSpawn = MAX_ASTEROIDS - (asteroids.size() + asteroidsQueue.size());
+        }
+        for (int i = 0; i < numberOfAsteroidsToSpawn; i++) {
+            Asteroid asteroid = new Asteroid();
             asteroidsQueue.add(asteroid);
         }
     }
 
+
     public void draw(Graphics2D g) {
-        synchronized (this) {
-            g.setColor(Color.white);
-            g.setStroke(new BasicStroke(2f));
-            ship.draw(g);
-            Iterator<Bullet> bulletIterator = ship.bullets.iterator();
-            while (bulletIterator.hasNext()) {
-                Bullet bullet = bulletIterator.next();
-                bullet.draw(g);
-            }
-            Iterator<Asteroid> asteroidDrawIterator = asteroids.iterator();
-            while (asteroidDrawIterator.hasNext()) {
-                Asteroid asteroid = asteroidDrawIterator.next();
-                asteroid.draw(g);
-            }
-            ScoreUI.draw(g);
-            HealthUI.draw(g);
+        //synchronized (this) {
+        g.setColor(Color.white);
+        g.setStroke(new BasicStroke(2f));
+        ship.draw(g);
+        Iterator<Bullet> bulletIterator = ship.bullets.iterator();
+        while (bulletIterator.hasNext()) {
+            Bullet bullet = bulletIterator.next();
+            bullet.draw(g);
         }
+        Iterator<Asteroid> asteroidDrawIterator = asteroids.iterator();
+        while (asteroidDrawIterator.hasNext()) {
+            Asteroid asteroid = asteroidDrawIterator.next();
+            asteroid.draw(g);
+        }
+        ScoreUI.draw(g);
+        HealthUI.draw(g);
+        //}
     }
 
     public void checkShipAsteroidCollisions() {
@@ -128,11 +144,11 @@ class PlayManager {
         ship.bullets.removeIf(bullet -> !bullet.isActive());
         //int finalBulletCount = ship.bullets.size();
         //System.out.println("Bullets before cleanup: " + initialBulletCount + ", after cleanup: " + finalBulletCount);
-        //int initialAsteroidCount = asteroids.size();
+        int initialAsteroidCount = asteroids.size();
         asteroids.removeIf(asteroid -> !asteroid.isActive());
         asteroids.addAll(asteroidsQueue);
         asteroidsQueue.clear();
-        //int finalAsteroidCount = asteroids.size();
-        //System.out.println("Asteroids before cleanup: " + initialAsteroidCount + ", after cleanup: " + finalAsteroidCount);
+        int finalAsteroidCount = asteroids.size();
+        System.out.println("Asteroids before cleanup: " + initialAsteroidCount + ", after cleanup: " + finalAsteroidCount);
     }
 }
