@@ -9,15 +9,14 @@ class SaveHandler {
 
     private static final String dataFilePath = "data/highscore.dat";
 
-    private SaveHandler(){
+    private SaveHandler() {
         // no-op, full static method
     }
 
     public static int load() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SaveHandler.dataFilePath))) {
             return in.readInt();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
         return 0;
@@ -26,8 +25,7 @@ class SaveHandler {
     public static void save(int score) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SaveHandler.dataFilePath))) {
             out.writeInt(score);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
