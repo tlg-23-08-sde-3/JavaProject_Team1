@@ -1,5 +1,6 @@
 package com.space;
 
+import com.space.audio.Audio;
 import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
 
@@ -80,6 +81,7 @@ class PlayManager {
                 if (ship.intersectsWith(asteroid)) {
                     HealthUI.removeLife();
                     ship.defaultShip();
+                    Audio.playSound(1);
                     break;
                 }
             }
@@ -112,6 +114,7 @@ class PlayManager {
                     ScoreUI.addScore(10);
                     bullet.isActive = false;
                     asteroidsQueue.addAll(asteroid.split());
+                    Audio.playSound(1);
                 }
             }
         }

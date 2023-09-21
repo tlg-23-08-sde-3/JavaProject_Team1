@@ -8,7 +8,7 @@ import java.awt.geom.Path2D;
 
 class Bullet extends SpaceObject {
 
-    public static final int BULLET_DELAY = 5;
+    public static final int BULLET_DELAY = 10;
     public static int bulletDelayCounter = BULLET_DELAY;
 
     private final double bulletSpeed = 20;
@@ -22,8 +22,7 @@ class Bullet extends SpaceObject {
         velocityX = bulletSpeed * Math.sin(Math.toRadians(orientation));
         velocityY = -bulletSpeed * Math.cos(Math.toRadians(orientation));
         createBulletShape();
-        audio = new Audio(bulletAudioString);
-        audio.playSound();
+        Audio.playSound(0);
     }
 
     private void createBulletShape() {

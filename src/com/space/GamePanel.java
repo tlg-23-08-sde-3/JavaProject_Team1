@@ -1,5 +1,6 @@
 package com.space;
 
+import com.space.audio.Audio;
 import com.space.frames.EndGameFrame;
 import com.space.frames.ResetGame;
 import com.space.ui.HealthUI;
@@ -33,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
         ResetGame.touch();
-
+        Audio.loopSound(3);
     }
 
     @Override
@@ -65,12 +66,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void endGame() {
         gameThread = null;
+        Audio.stopSound(3);
         System.out.println("Game over");
         this.setVisible(false);
         GameFrame.disposeGame();
         EndGameFrame egf = new EndGameFrame(ScoreUI.score);
         playManager = new PlayManager();
-        //this.dispatchEvent(new WindowEvent(Window.getWindows()[1], WindowEvent.WINDOW_CLOSING));
     }
 
     private void update() {
