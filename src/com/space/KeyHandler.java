@@ -52,7 +52,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public static void resetKeys () {
+    public static void resetKeys() {
         upPressed = false;
         leftPressed = false;
         rightPressed = false;

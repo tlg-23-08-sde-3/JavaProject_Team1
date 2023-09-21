@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -149,10 +150,12 @@ class Ship extends SpaceObject {
      * Controls delay counter to delay how often bullets are instantiated
      */
     private void updateBullets() {
-        bullets.forEach(bullet -> {
+        Iterator<Bullet> bulletIterator = bullets.iterator();
+        while (bulletIterator.hasNext()) {
+            Bullet bullet = bulletIterator.next();
             bullet.move();
             bullet.checkBounds();
-        });
+        }
         Bullet.bulletDelayCounter++;
         if (Bullet.bulletDelayCounter > Bullet.BULLET_DELAY) {
             Bullet.bulletDelayCounter = Bullet.BULLET_DELAY;
@@ -192,7 +195,6 @@ class Ship extends SpaceObject {
             Bullet bullet = new Bullet(centroidX, centroidY, orientation);
             bullets.add(bullet);
             Bullet.bulletDelayCounter = 0;
-            //System.out.println("Bullets: " + bullets.size());
         }
     }
 
@@ -217,10 +219,5 @@ class Ship extends SpaceObject {
      */
     public void drawBullets(Graphics2D graphics) {
         bullets.forEach(bullet -> bullet.draw(graphics));
-    }
-
-    public void destroy() {
-        System.out.println("Ship has been destroyed");
-        // other actions
     }
 }
