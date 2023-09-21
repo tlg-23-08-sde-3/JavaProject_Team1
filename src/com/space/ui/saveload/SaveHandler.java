@@ -1,11 +1,11 @@
-package com.space.frames;
+package com.space.ui.saveload;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-class SaveHandler {
+public class SaveHandler {
 
     // static fields
     private static final String dataFilePath = "data/highscore.dat";

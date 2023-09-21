@@ -1,4 +1,4 @@
-package com.space.ui;
+package com.space.ui.saveload;
 
 import java.awt.Font;
 import java.io.File;
