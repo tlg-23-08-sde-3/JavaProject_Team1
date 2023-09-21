@@ -5,6 +5,7 @@ import com.space.frames.EndGameFrame;
 import com.space.frames.GameFrame;
 import com.space.frames.ResetGame;
 import com.space.ui.ScoreUI;
+import com.space.ui.saveload.LoadSettings;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Start the game thread
     public void startGame() {
+        LoadSettings.loadSettings();
         gameThread = new Thread(this);
         gameThread.start();
         ResetGame.touch();

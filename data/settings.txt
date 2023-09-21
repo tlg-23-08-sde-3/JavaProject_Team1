@@ -1,0 +1,16 @@
+# Asteroids Game Settings
+
+# Any Lines with a "#" will be ignored
+
+# Template for settings is as follows
+## VARIABLE=NUMBER
+## Note, there are NO spaces between the variables, equals signs, and numbers
+
+# Asteroid Spawn Interval (1/60th of a second): Default 60
+ASTEROID_SPAWN_INTERVAL=60
+
+# Max Asteroids on screen: Default 20: Keep between 10 and 100
+MAX_ASTEROIDS=20
+
+# Difficult increment: Default 0.05
+DIFFICULTY_INCREMENT=0.05

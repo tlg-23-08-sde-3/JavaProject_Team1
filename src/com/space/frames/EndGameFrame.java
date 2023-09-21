@@ -1,7 +1,8 @@
 package com.space.frames;
 
 import com.space.audio.Audio;
-import com.space.ui.FontLoader;
+import com.space.ui.saveload.FontLoader;
+import com.space.ui.saveload.SaveHandler;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;

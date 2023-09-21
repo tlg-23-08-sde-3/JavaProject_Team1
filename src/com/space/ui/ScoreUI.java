@@ -1,6 +1,7 @@
 package com.space.ui;
 
 import com.space.logic.GamePanel;
+import com.space.ui.saveload.FontLoader;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
