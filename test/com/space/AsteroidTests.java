@@ -28,13 +28,13 @@ public class AsteroidTests {
     @Test
     public void split_shouldReturnAsteroidMedium_whenLargeAsteroidSplits() {
         List<Asteroid> asteroids = asteroid.split();
-        assertEquals(asteroids.get(0).size, AsteroidSize.MEDIUM);
+        assertEquals(asteroids.get(0).getAsteroidSize(), AsteroidSize.MEDIUM);
     }
 
     @Test
     public void split_shouldReturnAsteroidSmall_whenMediumAsteroidSplits() {
         List<Asteroid> asteroidsMed = asteroid.split();
         List<Asteroid> asteroidsSmall = asteroidsMed.get(0).split();
-        assertEquals(asteroidsSmall.get(0).size, AsteroidSize.SMALL);
+        assertEquals(asteroidsSmall.get(0).getAsteroidSize(), AsteroidSize.SMALL);
     }
 }

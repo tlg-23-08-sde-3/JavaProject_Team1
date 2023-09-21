@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class GameFrame {
 
-    static JFrame frame;
-    GamePanel panel;
+    private static JFrame frame;
+    private GamePanel panel;
 
     public GameFrame() {
         frame = new JFrame();

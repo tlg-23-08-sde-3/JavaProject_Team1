@@ -15,18 +15,16 @@ import java.util.List;
  */
 public class Ship extends SpaceObject {
 
-    public boolean isInvulnerable = false;
+    private boolean isInvulnerable = false;
     private int invulnerableTime = 0;
     private final int INVULNERABLE_DURATION = 180; // 3 seconds
-
-
     private final double MAX_SPEED = 1.0;
     private final double MIN_SPEED = 0.005;
     private final double accelerationRate = 0.025;
     private final double decelerationRate = 0.01;
     private final double rotationSpeed = 5.0;
     private double angle = 0;
-    public List<Bullet> bullets = new ArrayList<>();
+    private List<Bullet> bullets = new ArrayList<>();
 
     public Ship() {
         super();
@@ -222,5 +220,21 @@ public class Ship extends SpaceObject {
      */
     public void drawBullets(Graphics2D graphics) {
         bullets.forEach(bullet -> bullet.draw(graphics));
+    }
+
+    public boolean isInvulnerable() {
+        return isInvulnerable;
+    }
+
+    public void setInvulnerable(boolean invulnerable) {
+        isInvulnerable = invulnerable;
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = bullets;
     }
 }

@@ -33,6 +33,4 @@ public class Bullet extends SpaceObject {
         bulletShape.closePath();
         shape = bulletShape;
     }
-
-
 }

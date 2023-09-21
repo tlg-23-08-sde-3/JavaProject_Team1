@@ -8,11 +8,11 @@ import java.awt.*;
 
 public class EndGameFrame extends JFrame {
 
-    JFrame frame = new JFrame("Asteroids");
-    String fontString = "assets/fonts/AtariFont.ttf";
-    float fontSize = 30f;
-    Font font = FontLoader.loadFont(fontString, fontSize);
-    boolean isHighScore = false;
+    private JFrame frame = new JFrame("Asteroids");
+    private String fontString = "assets/fonts/AtariFont.ttf";
+    private float fontSize = 30f;
+    private Font font = FontLoader.loadFont(fontString, fontSize);
+    private boolean isHighScore = false;
 
     public EndGameFrame(int score) {
 

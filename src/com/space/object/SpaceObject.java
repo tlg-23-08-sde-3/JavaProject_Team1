@@ -26,8 +26,8 @@ class SpaceObject extends JPanel {
 
     // constructors
     public SpaceObject() {
-        this.setActive(true);
-        shape = new Path2D.Double();
+        this.isActive = true;
+        this.shape = new Path2D.Double();
     }
 
     public SpaceObject(double locationX, double locationY, double velocityX, double velocityY, Path2D shape) {
@@ -139,7 +139,7 @@ class SpaceObject extends JPanel {
         double buffer = AsteroidSize.LARGE.getUpperLimit() * 3;
         if (locationX < MIN_LOCATION_X - buffer || locationX > MAX_LOCATION_X + buffer ||
                 locationY < MIN_LOCATION_Y - buffer || locationY > MAX_LOCATION_Y + buffer) {
-            setActive(false);
+            isActive = false;
         }
     }
 

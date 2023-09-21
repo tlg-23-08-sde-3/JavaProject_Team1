@@ -10,7 +10,7 @@ import java.awt.*;
  * Launches game and hides this window on "Start Game" button
  */
 public class TitleFrame extends JFrame {
-    JFrame frame = new JFrame("Asteroids");
+    private JFrame frame = new JFrame("Asteroids");
 
     public TitleFrame() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

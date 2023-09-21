@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Asteroid extends SpaceObject {
 
-    public AsteroidSize size;
+    private AsteroidSize asteroidSize;
 
     public Asteroid() {
         super();
@@ -17,9 +17,9 @@ public class Asteroid extends SpaceObject {
     }
 
 
-    public Asteroid(AsteroidSize size, double locationX, double locationY, double velocityX, double velocityY) {
+    public Asteroid(AsteroidSize asteroidSize, double locationX, double locationY, double velocityX, double velocityY) {
         super();
-        this.size = size;
+        this.asteroidSize = asteroidSize;
         this.locationX = locationX;
         this.locationY = locationY;
         this.velocityX = velocityX;
@@ -36,7 +36,7 @@ public class Asteroid extends SpaceObject {
 
     public void setRandomVelocity() {
         double velocityRange = 0.3;
-        switch (size) {
+        switch (asteroidSize) {
             case MEDIUM:
                 velocityRange = 0.6;
                 break;
@@ -52,13 +52,13 @@ public class Asteroid extends SpaceObject {
         int randomSize = (int) (Math.random() * 3);
         switch (randomSize) {
             case 0:
-                size = AsteroidSize.SMALL;
+                asteroidSize = AsteroidSize.SMALL;
                 break;
             case 1:
-                size = AsteroidSize.MEDIUM;
+                asteroidSize = AsteroidSize.MEDIUM;
                 break;
             case 2:
-                size = AsteroidSize.LARGE;
+                asteroidSize = AsteroidSize.LARGE;
                 break;
         }
     }
@@ -78,7 +78,7 @@ public class Asteroid extends SpaceObject {
         boolean firstPoint = true;
         for (int i = 0; i < 10; i++) {
             int angle = 36 * i;
-            double distance = size.getLowerLimit() + (int) (Math.random() * (size.getUpperLimit() - size.getLowerLimit()));
+            double distance = asteroidSize.getLowerLimit() + (int) (Math.random() * (asteroidSize.getUpperLimit() - asteroidSize.getLowerLimit()));
             double x = locationX + (distance * Math.cos(Math.toRadians(angle)));
             double y = locationY + (distance * Math.sin(Math.toRadians(angle)));
             if (firstPoint) {
@@ -100,7 +100,7 @@ public class Asteroid extends SpaceObject {
     public List<Asteroid> split() {
         List<Asteroid> splitAsteroids = new ArrayList<>();
         double[] centroid = getCentroid();
-        switch (size) {
+        switch (asteroidSize) {
             case LARGE:
                 for (int i = 0; i < 2; i++) {
                     Asteroid asteroid = new Asteroid(AsteroidSize.MEDIUM, centroid[0], centroid[1], velocityX, velocityY);
@@ -119,11 +119,11 @@ public class Asteroid extends SpaceObject {
     }
 
     public boolean isLarge() {
-        return this.size == AsteroidSize.LARGE;
+        return this.asteroidSize == AsteroidSize.LARGE;
     }
 
     public boolean isMedium() {
-        return this.size == AsteroidSize.MEDIUM;
+        return this.asteroidSize == AsteroidSize.MEDIUM;
     }
 
     public void setRandomOutsideLocation() {
@@ -165,5 +165,13 @@ public class Asteroid extends SpaceObject {
         double speed = 0.5;
         velocityX = (dx / magnitude) * speed;
         velocityY = (dy / magnitude) * speed;
+    }
+
+    public AsteroidSize getAsteroidSize() {
+        return asteroidSize;
+    }
+
+    public void setAsteroidSize(AsteroidSize asteroidSize) {
+        this.asteroidSize = asteroidSize;
     }
 }
