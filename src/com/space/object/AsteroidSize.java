@@ -1,6 +1,6 @@
-package com.space;
+package com.space.object;
 
-enum AsteroidSize {
+public enum AsteroidSize {
     SMALL(10.0, 30.0),
     MEDIUM(20.0, 40.0),
     LARGE(30.0, 50.0);

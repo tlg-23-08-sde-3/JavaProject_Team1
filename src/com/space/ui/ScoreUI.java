@@ -1,10 +1,8 @@
 package com.space.ui;
 
-import com.space.GamePanel;
+import com.space.logic.GamePanel;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class ScoreUI {
 

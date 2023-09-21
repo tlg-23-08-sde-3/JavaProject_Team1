@@ -1,12 +1,10 @@
-package com.space;
+package com.space.object;
 
 import com.space.audio.Audio;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 
-class Bullet extends SpaceObject {
+public class Bullet extends SpaceObject {
 
     public static final int BULLET_DELAY = 10;
     public static int bulletDelayCounter = BULLET_DELAY;

@@ -1,4 +1,4 @@
-package com.space;
+package com.space.logic;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

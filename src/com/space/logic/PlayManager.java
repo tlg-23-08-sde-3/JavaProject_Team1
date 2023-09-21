@@ -1,6 +1,9 @@
-package com.space;
+package com.space.logic;
 
 import com.space.audio.Audio;
+import com.space.object.Asteroid;
+import com.space.object.Bullet;
+import com.space.object.Ship;
 import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
 
@@ -112,7 +115,7 @@ class PlayManager {
                 Asteroid asteroid = asteroidIterator.next();
                 if (bullet.intersectsWith(asteroid)) {
                     ScoreUI.addScore(10);
-                    bullet.isActive = false;
+                    bullet.setActive(false);
                     asteroidsQueue.addAll(asteroid.split());
                     Audio.playSound(1);
                 }
@@ -122,11 +125,11 @@ class PlayManager {
 
     public void cleanupObjects() {
         //int initialBulletCount = ship.bullets.size();
-        ship.bullets.removeIf(bullet -> !bullet.isActive);
+        ship.bullets.removeIf(bullet -> !bullet.isActive());
         //int finalBulletCount = ship.bullets.size();
         //System.out.println("Bullets before cleanup: " + initialBulletCount + ", after cleanup: " + finalBulletCount);
         //int initialAsteroidCount = asteroids.size();
-        asteroids.removeIf(asteroid -> !asteroid.isActive);
+        asteroids.removeIf(asteroid -> !asteroid.isActive());
         asteroids.addAll(asteroidsQueue);
         asteroidsQueue.clear();
         //int finalAsteroidCount = asteroids.size();

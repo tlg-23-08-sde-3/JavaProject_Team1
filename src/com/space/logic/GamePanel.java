@@ -1,14 +1,13 @@
-package com.space;
+package com.space.logic;
 
 import com.space.audio.Audio;
 import com.space.frames.EndGameFrame;
+import com.space.frames.GameFrame;
 import com.space.frames.ResetGame;
-import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
 public class GamePanel extends JPanel implements Runnable {
 

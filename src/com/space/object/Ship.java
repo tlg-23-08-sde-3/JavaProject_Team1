@@ -1,4 +1,7 @@
-package com.space;
+package com.space.object;
+
+import com.space.logic.GamePanel;
+import com.space.logic.KeyHandler;
 
 import java.awt.*;
 import java.awt.geom.Path2D;
@@ -10,7 +13,7 @@ import java.util.List;
 /**
  * Main Player Ship class
  */
-class Ship extends SpaceObject {
+public class Ship extends SpaceObject {
 
     public boolean isInvulnerable = false;
     private int invulnerableTime = 0;

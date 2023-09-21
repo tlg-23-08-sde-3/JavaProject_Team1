@@ -2,6 +2,8 @@ package com.space;
 
 import static org.junit.Assert.*;
 
+import com.space.object.Asteroid;
+import com.space.object.AsteroidSize;
 import org.junit.Before;
 import org.junit.Test;
 

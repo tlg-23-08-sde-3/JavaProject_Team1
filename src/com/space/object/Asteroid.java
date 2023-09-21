@@ -1,12 +1,10 @@
-package com.space;
-
-import com.space.audio.Audio;
+package com.space.object;
 
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
-class Asteroid extends SpaceObject {
+public class Asteroid extends SpaceObject {
 
     public AsteroidSize size;
 
@@ -116,7 +114,7 @@ class Asteroid extends SpaceObject {
                 }
                 break;
         }
-        isActive = false;
+        setActive(false);
         return splitAsteroids;
     }
 

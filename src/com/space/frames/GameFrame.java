@@ -1,4 +1,6 @@
-package com.space;
+package com.space.frames;
+
+import com.space.logic.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;

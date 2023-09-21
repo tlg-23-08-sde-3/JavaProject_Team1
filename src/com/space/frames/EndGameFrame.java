@@ -1,17 +1,10 @@
 package com.space.frames;
 
-import com.space.GameFrame;
-import com.space.GamePanel;
 import com.space.audio.Audio;
 import com.space.ui.FontLoader;
-import com.space.ui.HealthUI;
-import com.space.ui.ScoreUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class EndGameFrame extends JFrame {
 

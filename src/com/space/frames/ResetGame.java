@@ -1,8 +1,7 @@
 package com.space.frames;
 
-import com.space.GameFrame;
-import com.space.GamePanel;
-import com.space.KeyHandler;
+import com.space.logic.GamePanel;
+import com.space.logic.KeyHandler;
 import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
 

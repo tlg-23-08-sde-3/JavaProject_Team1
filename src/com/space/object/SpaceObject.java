@@ -1,4 +1,6 @@
-package com.space;
+package com.space.object;
+
+import com.space.logic.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +26,7 @@ class SpaceObject extends JPanel {
 
     // constructors
     public SpaceObject() {
-        this.isActive = true;
+        this.setActive(true);
         shape = new Path2D.Double();
     }
 
@@ -137,7 +139,7 @@ class SpaceObject extends JPanel {
         double buffer = AsteroidSize.LARGE.getUpperLimit() * 3;
         if (locationX < MIN_LOCATION_X - buffer || locationX > MAX_LOCATION_X + buffer ||
                 locationY < MIN_LOCATION_Y - buffer || locationY > MAX_LOCATION_Y + buffer) {
-            isActive = false;
+            setActive(false);
         }
     }
 

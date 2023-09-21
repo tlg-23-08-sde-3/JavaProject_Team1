@@ -1,6 +1,5 @@
 package com.space.frames;
 
-import com.space.GameFrame;
 import com.space.audio.Audio;
 
 import javax.swing.*;

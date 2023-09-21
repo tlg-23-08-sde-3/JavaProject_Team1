@@ -6,11 +6,11 @@ import java.io.IOException;
 
 public class Audio {
     private static String[] assets = {
-                    "assets/audio/laserShoot.wav",
-                    "assets/audio/explosion.wav",
-                    "assets/audio/mainmenuloop.wav",
-                    "assets/audio/mainloopsong.wav",
-                    "assets/audio/EndSong.wav"};
+            "assets/audio/laserShoot.wav",
+            "assets/audio/explosion.wav",
+            "assets/audio/mainmenuloop.wav",
+            "assets/audio/mainloopsong.wav",
+            "assets/audio/EndSong.wav"};
     private static File[] file;
     private static AudioInputStream[] ais = null;
     private static Clip[] clip;
@@ -43,20 +43,18 @@ public class Audio {
         clip = new Clip[assets.length];
         ais = new AudioInputStream[assets.length];
 
-        for(int i = 0; i < assets.length; i++) {
+        for (int i = 0; i < assets.length; i++) {
             try {
                 file[i] = new File(assets[i]);
                 ais[i] = AudioSystem.getAudioInputStream(file[i]);
                 clip[i] = AudioSystem.getClip();
                 clip[i].open(ais[i]);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getLocalizedMessage());
             }
         }
 
     }
-
 
 
 //    public Audio(String fileString) {
