@@ -1,6 +1,5 @@
 package com.space.ui.saveload;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
@@ -8,11 +7,6 @@ import java.awt.*;
 import static org.junit.Assert.*;
 
 public class FontLoaderTest {
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
 
     @Test
     public void fontLoader_loadsAtariFont_whenFontFound() {

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class PlayManagerTests {
 
-    // fixture
+    // fixtures
     PlayManager playManager;
 
     @Before

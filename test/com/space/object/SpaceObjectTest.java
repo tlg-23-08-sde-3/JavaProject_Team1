@@ -9,9 +9,11 @@ import static org.junit.Assert.*;
 
 public class SpaceObjectTest {
 
+    // fixtures
     SpaceObject object;
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         object = new SpaceObject();
     }
 

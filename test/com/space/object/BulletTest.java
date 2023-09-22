@@ -7,11 +7,12 @@ import static org.junit.Assert.*;
 
 public class BulletTest {
 
+    // fixtures
     Bullet bullet;
 
     @Before
     public void setUp() {
-        bullet = new Bullet(0, 0 , 0);
+        bullet = new Bullet(0, 0, 0);
     }
 
     @Test

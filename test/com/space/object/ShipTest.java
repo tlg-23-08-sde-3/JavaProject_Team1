@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class ShipTest {
 
-    // fixture
+    // fixtures
     Ship ship;
 
     @Before
