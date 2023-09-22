@@ -170,4 +170,8 @@ class SpaceObject extends JPanel {
     public double getLocationY() {
         return locationY;
     }
+
+    public Path2D getShape() {
+        return shape;
+    }
 }
