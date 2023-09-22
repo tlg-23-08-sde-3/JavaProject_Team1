@@ -19,7 +19,7 @@ public class LoadSettings {
             BufferedReader br = new BufferedReader(new FileReader(fileString));
             String line = br.readLine();
             while (line != null) {
-                System.out.println(line);
+                //System.out.println(line);
                 if (line.startsWith("#")) {
                     line = br.readLine();
                     continue;
