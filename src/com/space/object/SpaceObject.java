@@ -8,7 +8,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 
-
+/**
+ * Superclass for the main game objects
+ * Sets default locations, velocities, shapes and tracks activity
+ */
 class SpaceObject extends JPanel {
 
     // static variables

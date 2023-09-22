@@ -5,6 +5,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 
+/**
+ * Static Audio class
+ * Loads audio from assets folder
+ * Allows you to play, stop and loop audio
+ */
 public class Audio {
 
     // static fields

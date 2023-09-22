@@ -8,6 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
+/**
+ * UI Element in top right of screen
+ * Tracks score based on when asteroids are destroyed
+ */
 public class ScoreUI {
 
     // static fields

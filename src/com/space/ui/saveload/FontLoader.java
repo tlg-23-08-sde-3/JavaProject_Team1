@@ -4,6 +4,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Static class to load in a font based on string and float
+ */
 public class FontLoader {
 
     // constructors

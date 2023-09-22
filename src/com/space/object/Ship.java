@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Main Player Ship class
+ * This is what the user will be controlling
  */
 public class Ship extends SpaceObject {
 

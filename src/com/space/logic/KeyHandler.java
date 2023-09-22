@@ -3,6 +3,10 @@ package com.space.logic;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * KeyListener based class
+ * Tracks the keypresses of the player
+ */
 public class KeyHandler implements KeyListener {
 
     // static fields

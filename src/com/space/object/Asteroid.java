@@ -4,6 +4,10 @@ import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Inherits SpaceObject
+ * Object that collides and compares with Ship and Bullet
+ */
 public class Asteroid extends SpaceObject {
 
     // static fields

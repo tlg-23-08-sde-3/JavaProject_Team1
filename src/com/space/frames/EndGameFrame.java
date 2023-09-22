@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * JFrame to be displayed at the end of the game (a.k.a. Game Over)
+ */
 public class EndGameFrame extends JFrame {
 
     // fields

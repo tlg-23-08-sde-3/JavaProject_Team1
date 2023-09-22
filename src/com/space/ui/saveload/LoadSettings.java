@@ -2,6 +2,9 @@ package com.space.ui.saveload;
 
 import java.io.*;
 
+/**
+ * Static class to load in from settings.txt file
+ */
 public class LoadSettings {
 
     private static String fileString = "data/settings.txt";
