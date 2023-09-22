@@ -1,7 +1,8 @@
 package com.space.ui.saveload;
 
-import java.awt.Font;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class FontLoader {
 
@@ -17,7 +18,7 @@ public class FontLoader {
             File file = new File(fontString);
             font = Font.createFont(Font.TRUETYPE_FONT, file);
             font = font.deriveFont(fontSize);
-        } catch (Exception e) {
+        } catch (IOException | FontFormatException e) {
             System.out.println(e.getLocalizedMessage());
             font = new Font("Arial", Font.PLAIN, 22);
         }
