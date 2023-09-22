@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Main logic for managing play of the application
+ */
 class PlayManager {
 
     // fields

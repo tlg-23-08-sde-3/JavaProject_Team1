@@ -8,6 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
+/**
+ * UI Element in top left of screen
+ * Tracks endgame status if health at or below 0
+ */
 public class HealthUI {
 
     // static fields

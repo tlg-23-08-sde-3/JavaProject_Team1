@@ -1,5 +1,9 @@
 package com.space.object;
 
+/**
+ * Enum for Asteroid class
+ * Tracks the possible sizes of the three types of asteroids
+ */
 public enum AsteroidSize {
 
     // fields

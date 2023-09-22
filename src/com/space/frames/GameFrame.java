@@ -5,6 +5,10 @@ import com.space.logic.GamePanel;
 import javax.swing.JFrame;
 import java.awt.Color;
 
+/**
+ * Main Game Frame
+ * Visuals and window handler for JFrame
+ */
 public class GameFrame {
 
     // static fields

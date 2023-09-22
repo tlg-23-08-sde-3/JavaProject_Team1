@@ -4,6 +4,11 @@ import com.space.audio.Audio;
 
 import java.awt.geom.Path2D;
 
+/**
+ * Main projectile of the application
+ * Instantiated with a velocity
+ * Disappears upon leaving the play window or hitting an asteroid
+ */
 public class Bullet extends SpaceObject {
 
     // static fields

@@ -13,6 +13,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+/**
+ * Main Game Thread
+ * Runs the game at a specified FPS
+ * Updates and repaints the main screen
+ */
 public class GamePanel extends JPanel implements Runnable {
 
     // static fields

@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Static class for saving and loading the highscore.dat file
+ */
 public class SaveHandler {
 
     // static fields
