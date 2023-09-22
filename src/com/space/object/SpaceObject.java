@@ -154,4 +154,32 @@ class SpaceObject extends JPanel {
         this.orientation = orientation % 360;
         if (this.orientation < 0) this.orientation += 360;
     }
+
+    public double getVelocityX() {
+        return velocityX;
+    }
+
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public double getVelocityY() {
+        return velocityY;
+    }
+
+    public void setVelocityY(double velocityY) {
+        this.velocityY = velocityY;
+    }
+
+    public double getLocationX() {
+        return locationX;
+    }
+
+    public void setLocationX(double locationX) {
+        this.locationX = locationX;
+    }
+
+    public double getLocationY() {
+        return locationY;
+    }
 }

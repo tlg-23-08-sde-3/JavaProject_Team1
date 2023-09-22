@@ -40,7 +40,7 @@ public class Asteroid extends SpaceObject {
         velocityY = (Math.random() * 2 * velocityRange) - velocityRange;
     }
 
-    private double asteroidVelocityBySize() {
+    public double asteroidVelocityBySize() {
         double velocityRange = MAX_VELOCITY_LARGE;
         switch (asteroidSize) {
             case MEDIUM:
@@ -53,7 +53,7 @@ public class Asteroid extends SpaceObject {
         return velocityRange;
     }
 
-    private void limitAsteroidVelocityBySize() {
+    public void limitAsteroidVelocityBySize() {
         double limit = asteroidVelocityBySize();
         double currentSpeed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
         if (currentSpeed > limit) {
@@ -118,11 +118,11 @@ public class Asteroid extends SpaceObject {
                 }
                 break;
         }
-        setActive(false);
+        isActive = false;
         return splitAsteroids;
     }
 
-    private void setRandomOutsideLocation() {
+    public void setRandomOutsideLocation() {
         int frameSide = (int) (Math.random() * 4);
         double buffer = AsteroidSize.LARGE.getUpperLimit();
         double extendedBuffer = buffer * 2;

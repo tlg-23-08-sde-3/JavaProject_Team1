@@ -6,6 +6,7 @@ import com.space.object.Bullet;
 import com.space.object.Ship;
 import com.space.ui.HealthUI;
 import com.space.ui.ScoreUI;
+
 import static com.space.ui.saveload.LoadSettings.*;
 
 import java.awt.BasicStroke;
@@ -54,11 +55,11 @@ class PlayManager {
         }
     }
 
-    private void increaseDifficulty() {
+    public void increaseDifficulty() {
         difficultyScalingFactor += DIFFICULTY_INCREMENT;
     }
 
-    private void asteroidSpawn() {
+    public void asteroidSpawn() {
         int numberOfAsteroidsToSpawn = (int) (1 * difficultyScalingFactor);
         int totalAsteroidsAfterSpawn = asteroids.size() + asteroidsQueue.size() + numberOfAsteroidsToSpawn;
         if (totalAsteroidsAfterSpawn > MAX_ASTEROIDS) {
@@ -141,5 +142,18 @@ class PlayManager {
         asteroids.removeIf(asteroid -> !asteroid.isActive());
         asteroids.addAll(asteroidsQueue);
         asteroidsQueue.clear();
+    }
+
+    // getters and setters
+    public int getAsteroidSpawnCounter() {
+        return asteroidSpawnCounter;
+    }
+
+    public double getDifficultyScalingFactor() {
+        return difficultyScalingFactor;
+    }
+
+    public List<Asteroid> getAsteroidsQueue() {
+        return asteroidsQueue;
     }
 }
