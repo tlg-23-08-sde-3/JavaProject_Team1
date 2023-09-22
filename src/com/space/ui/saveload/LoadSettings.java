@@ -38,8 +38,7 @@ public class LoadSettings {
                 }
                 line = br.readLine();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

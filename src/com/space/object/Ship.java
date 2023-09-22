@@ -61,7 +61,7 @@ public class Ship extends SpaceObject {
     /**
      * Utilizes KeyListener and handles object movement based on keys pressed/released
      */
-    private void handleMovement() {
+    public void handleMovement() {
         if (KeyHandler.upPressed) {
             accelerate(accelerationRate, MAX_SPEED);
         }
@@ -98,7 +98,7 @@ public class Ship extends SpaceObject {
      * Allows the ship to wrap around the screen
      * If the ship goes off the left side, it will reappear on the right side, same
      */
-    private void wrapAroundScreen() {
+    public void wrapAroundScreen() {
         double[] centroid = getCentroid();
         Point2D centroidPoint = new Point2D.Double(centroid[0], centroid[1]);
         if (centroidPoint.getX() < 0) {
@@ -119,7 +119,7 @@ public class Ship extends SpaceObject {
      * Decelerates if the current magnitude is above the max speed.
      * Cleans up some jittery movement when swapping directions.
      */
-    private void limitSpeed() {
+    public void limitSpeed() {
         if (getSqrMagnitude() > MAX_SPEED) {
             decelerate(decelerationRate, MIN_SPEED);
         }
@@ -224,5 +224,9 @@ public class Ship extends SpaceObject {
                         "-----------------------------\n\n",
                 shape.getBounds().x, shape.getBounds().y, velocityX,
                 velocityY, getSqrMagnitude(), locationX, locationY, orientation);
+    }
+
+    public double getMaxSpeed() {
+        return MAX_SPEED;
     }
 }
