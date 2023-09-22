@@ -225,8 +225,4 @@ public class Ship extends SpaceObject {
                 shape.getBounds().x, shape.getBounds().y, velocityX,
                 velocityY, getSqrMagnitude(), locationX, locationY, orientation);
     }
-
-    public double getMaxSpeed() {
-        return MAX_SPEED;
-    }
 }
